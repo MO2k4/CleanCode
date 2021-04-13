@@ -1,3 +1,4 @@
+// Reference https://www.jetbrains.org/intellij/sdk/docs/tutorials/build_system/gradle_guide.html
 import org.apache.tools.ant.taskdefs.condition.Os
 
 buildscript {
@@ -7,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.jetbrains.rd:rd-gen:0.201.57") // https://github.com/JetBrains/rd#rdgen
+        classpath("com.jetbrains.rd:rd-gen:0.201.57") // https://www.myget.org/feed/rd-snapshots/package/maven/com.jetbrains.rd/rd-gen
     }
 }
 
@@ -18,17 +19,10 @@ plugins {
 }
 
 ext {
-    repoRoot = projectDir
     isWindows = Os.isFamily(Os.FAMILY_WINDOWS)
-    sdkVersion = "2020.3.2" // -SNAPSHOT or -EAPX suffixes possible
-    // rdLibDirectory = new File(repoRoot, "build/riderRD-$sdkVersion/lib/rd")
     rdLibDirectory = {
         new File(intellij.ideaDependency.classes, "lib/rd")
     }
-    dotNetDir = new File(repoRoot, "src/")
-    dotNetPluginId = "MO.CleanCode"
-    dotNetAssembly = "CleanCode"
-    dotnetSolution = new File(repoRoot, "src/CleanCode.sln")
 }
 
 repositories {
@@ -37,26 +31,12 @@ repositories {
 }
 
 wrapper {
-    gradleVersion = '4.9'
+    gradleVersion = '6.1.1'
     distributionType = Wrapper.DistributionType.ALL
     distributionUrl = "https://cache-redirector.jetbrains.com/services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
 
-if (!ext.has("BuildConfiguration"))
-    ext.BuildConfiguration = "Release"
-
-if (ext.has("pluginVersion"))
-    ext.version = ext.pluginVersion
-else
-    ext.version = "5.6.19"
-
-if (ext.has("username"))
-    intellij.publish.username = ext.username
-
-if (ext.has("password"))
-    intellij.publish.password = ext.password
-
-version ext.version
+version = ext.PluginVersion
 
 sourceSets {
     main {
@@ -69,80 +49,96 @@ compileKotlin {
     kotlinOptions { jvmTarget = "1.8" }
 }
 
-task findMsBuild {
+task setBuildTool {
     doLast {
+        ext.args = []
         ByteArrayOutputStream stdout = new ByteArrayOutputStream()
         if (isWindows) {
             exec {
-                executable "$repoRoot\\tools\\vswhere.exe"
-                args '-latest','-property','installationPath'
+                executable "${rootDir}\\tools\\vswhere.exe"
+                args '-latest','-property','installationPath','-products','*'
                 standardOutput = stdout
-                workingDir project.rootDir
+                workingDir rootDir
             }
             List<String> files = new FileNameFinder().getFileNames("${stdout.toString().trim()}\\MSBuild", "**/MSBuild.exe")
             ext.executable = files.get(0)
+            ext.args << "/v:minimal"
         } else {
-            exec {
-                executable 'which'
-                args 'msbuild'
-                standardOutput = stdout
-                workingDir project.rootDir
-            }
-            ext.executable = stdout.toString().trim()
+            ext.executable = "dotnet"
+            ext.args << "msbuild"
         }
+        ext.args << "${DotnetSolution}"
+        ext.args << "/p:Configuration=${BuildConfiguration}"
+        ext.args << "/p:HostFullIdentifier="
     }
 }
 
 task compileDotNet {
-    dependsOn findMsBuild
+    dependsOn setBuildTool
     doLast {
+        def arguments = setBuildTool.args.clone()
+        arguments << "/t:Restore;Rebuild"
         exec {
-            executable findMsBuild.executable
-            args "/t:Restore;Rebuild","$dotnetSolution","/v:minimal","/p:Configuration=$BuildConfiguration"
+            executable setBuildTool.executable
+            args arguments
+            workingDir rootDir
         }
     }
 }
 
 buildPlugin {
-    dependsOn findMsBuild
-    outputs.upToDateWhen { false }
     doLast {
         copy {
-            from "$buildDir/distributions/$rootProject.name-${version}.zip"
-            into "$rootDir/distribution"
+            from "${buildDir}/distributions/${rootProject.name}-${version}.zip"
+            into "${rootDir}/output"
         }
 
-        def changelogText = file("$repoRoot/CHANGELOG.md").text
+        def changelogText = file("${rootDir}/CHANGELOG.md").text
         def changelogMatches = changelogText =~ /(?s)(-.+?)(?=##|$)/
         def changeNotes = changelogMatches.collect {
-            it[1].replaceAll(/(?s)- /, "\u2022 ").replaceAll(/`/, "").replaceAll(/,/, "%2C")
+            it[1].replaceAll(/(?s)- /, "\u2022 ").replaceAll(/`/, "").replaceAll(/,/, "%2C").replaceAll(/;/, "%3B")
         }.take(1).join("")
 
+        def arguments = setBuildTool.args.clone()
+        arguments << "/t:Pack"
+        arguments << "/p:PackageOutputPath=${rootDir}/output"
+        arguments << "/p:PackageReleaseNotes=${changeNotes}"
+        arguments << "/p:PackageVersion=${version}"
         exec {
-            executable findMsBuild.executable
-            args "/t:Pack","$dotnetSolution","/v:minimal","/p:Configuration=$BuildConfiguration","/p:PackageOutputPath=$rootDir/distribution","/p:PackageReleaseNotes=$changeNotes","/p:PackageVersion=$version","/p:PackageId=MO.CleanCode"
+            executable setBuildTool.executable
+            args arguments
+            workingDir rootDir
         }
     }
 }
 
 intellij {
     type = 'RD'
-    version = "${sdkVersion}"
+    version = "${ProductVersion}"
     downloadSources = false
     instrumentCode = false
+    // TODO: add plugins
+    // plugins("uml", "com.jetbrains.ChooseRuntime:1.0.9")
+}
+
+runIde {
+    // TODO: adapt runtime if necessary
+    // jbrVersion("jbr_jcef-11_0_6b765.40") // https://confluence.jetbrains.com/display/JBR/Release+notes
 }
 
 apply plugin: 'com.jetbrains.rdgen'
 
 rdgen {
-    def modelDir = new File(repoRoot, "protocol/src/main/kotlin/model")
-    def csOutput = new File(repoRoot, "src/CleanCode/Rider/Model")
-    def ktOutput = new File(repoRoot, "src/rider/main/kotlin/cleancode/model")
+    def modelDir = new File(rootDir, "protocol/src/main/kotlin/model")
+    def csOutput = new File(rootDir, "src/${DotnetPluginId}/Rider")
+    def ktOutput = new File(rootDir, "src/rider/main/kotlin/com/jetbrains/rider/plugins/${RiderPluginId.replace('.','/').toLowerCase()}")
 
     verbose = true
-    classpath "$rdLibDirectory/rider-model.jar"
-    sources "$modelDir/rider"
-    hashFolder = 'build/rdgen/rider'
+    classpath {
+        "${rdLibDirectory()}/rider-model.jar"
+    }
+    sources "${modelDir}/rider"
+    hashFolder = "${buildDir}"
     packages = "model.rider"
 
     generator {
@@ -163,7 +159,7 @@ rdgen {
 }
 
 patchPluginXml {
-    def changelogText = file("$repoRoot/CHANGELOG.md").text
+    def changelogText = file("${rootDir}/CHANGELOG.md").text
     def changelogMatches = changelogText =~ /(?s)(-.+?)(?=##|$)/
 
     changeNotes = changelogMatches.collect {
@@ -174,21 +170,35 @@ patchPluginXml {
 prepareSandbox {
     dependsOn compileDotNet
 
-    def outputFolder = "$dotNetDir/$dotNetAssembly/bin/${dotNetAssembly}.Rider/$BuildConfiguration"
+    def outputFolder = "${rootDir}/src/${DotnetPluginId}/bin/${DotnetPluginId}.Rider/${BuildConfiguration}"
     def dllFiles = [
-            "$outputFolder/${dotNetAssembly}.dll",
-            "$outputFolder/${dotNetAssembly}.pdb"
+            "$outputFolder/${DotnetPluginId}.dll",
+            "$outputFolder/${DotnetPluginId}.pdb",
+            // TODO: add additional assemblies
     ]
 
     dllFiles.forEach({ f ->
         def file = file(f)
-        from(file, { into "$intellij.pluginName/dotnet" })
+        from(file, { into "${intellij.pluginName}/dotnet" })
     })
 
     doLast {
         dllFiles.forEach({ f ->
             def file = file(f)
-            if (!file.exists()) throw new RuntimeException("File $file does not exist")
+            if (!file.exists()) throw new RuntimeException("File ${file} does not exist")
         })
+    }
+}
+
+publishPlugin {
+    dependsOn buildPlugin
+    token = "${PublishToken}"
+
+    doLast {
+        exec {
+            executable "dotnet"
+            args "nuget","push","output/${DotnetPluginId}.${version}.nupkg","--api-key",token,"--source","https://plugins.jetbrains.com"
+            workingDir rootDir
+        }
     }
 }
