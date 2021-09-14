@@ -2,15 +2,14 @@
 
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
-        <AssemblyName>CleanCode</AssemblyName>
+        <AssemblyName>MO.CleanCode</AssemblyName>
         <RootNamespace>CleanCode</RootNamespace>
-        <IsPackable>false</IsPackable>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <CodeAnalysisRuleset>CleanCode.ruleset</CodeAnalysisRuleset>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="JetBrains.Rider.SDK" Version="$(SdkVersion)">
+        <PackageReference Include="JetBrains.ReSharper.SDK" Version="$(SdkVersion)">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
@@ -21,13 +20,15 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <!-- TODO: https://github.com/NuGet/Home/issues/7154 -->
+        <PackageReference Include="Wave" Version="$(WaveVersion)" />
     </ItemGroup>
 
     <ItemGroup>
-        <Reference Include="System.Xaml" />
-        <Reference Include="WindowsBase" />
         <Reference Include="PresentationCore" />
         <Reference Include="PresentationFramework" />
+        <Reference Include="System.Xaml" />
+        <Reference Include="WindowsBase" />
     </ItemGroup>
 
     <ItemGroup>
@@ -55,7 +56,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Page Include="**\*.xaml">
+        <Page Include="Resources\Icons\Settings\ThemedIcons.Settings.Generated.Xaml">
             <SubType>Designer</SubType>
             <Generator>MSBuild:Compile</Generator>
         </Page>

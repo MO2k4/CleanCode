@@ -1,7 +1,7 @@
 $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
 $PluginId = "MO.CleanCode"
-$SolutionPath = "$PSScriptRoot\src\CleanCode.sln"
-$SourceBasePath = "$PSScriptRoot\src"
+$SolutionPath = "$PSScriptRoot\src\dotnet\CleanCode.sln"
+$SourceBasePath = "$PSScriptRoot\src\dotnet"
 
 $VsWhereOutput = [xml] (& "$PSScriptRoot\tools\vswhere.exe" -format xml -latest -products *)
 $VisualStudio = $VsWhereOutput.instances.instance |

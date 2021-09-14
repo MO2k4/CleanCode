@@ -127,8 +127,8 @@ runIde {
 
 rdgen {
     def modelDir = new File(rootDir, "protocol/src/main/kotlin/model")
-    def csOutput = new File(rootDir, "src/${DotnetPluginId}")
-    def ktOutput = new File(rootDir, "src/rider/main/kotlin/com/jetbrains/rider/plugins/${RiderPluginId.replace('.','/').toLowerCase()}")
+    def csOutput = new File(rootDir, "src/dotnet/${DotnetPluginId}/Rider")
+    def ktOutput = new File(rootDir, "src/rider/main/kotlin/com/jetbrains/rider/plugins/cleancode")
 
     verbose = true
     classpath {
@@ -168,7 +168,7 @@ patchPluginXml {
 prepareSandbox {
     dependsOn compileDotNet
 
-    def outputFolder = "${rootDir}/src/${DotnetPluginId}/bin/${DotnetPluginId}.Rider/${BuildConfiguration}"
+    def outputFolder = "${rootDir}/src/dotnet/${RiderPluginId}/bin/${RiderPluginId}.Rider/${BuildConfiguration}"
     def dllFiles = [
             "$outputFolder/${DotnetPluginId}.dll",
             "$outputFolder/${DotnetPluginId}.pdb",
@@ -177,7 +177,7 @@ prepareSandbox {
 
     dllFiles.forEach({ f ->
         def file = file(f)
-        from(file, { into "${rootProject.name}" })
+        from(file, { into "${rootProject.name}/dotnet" })
     })
 
     doLast {
