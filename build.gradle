@@ -168,7 +168,7 @@ patchPluginXml {
 prepareSandbox {
     dependsOn compileDotNet
 
-    def outputFolder = "${rootDir}/src/dotnet/${DotnetPluginId}/bin/${DotnetPluginId}.Rider/${BuildConfiguration}"
+    def outputFolder = "${rootDir}/src/${DotnetPluginId}/bin/${DotnetPluginId}.Rider/${BuildConfiguration}"
     def dllFiles = [
             "$outputFolder/${DotnetPluginId}.dll",
             "$outputFolder/${DotnetPluginId}.pdb",
@@ -177,7 +177,7 @@ prepareSandbox {
 
     dllFiles.forEach({ f ->
         def file = file(f)
-        from(file, { into "${rootProject.name}/dotnet" })
+        from(file, { into "${rootProject.name}" })
     })
 
     doLast {
