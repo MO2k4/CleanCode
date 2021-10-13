@@ -33,5 +33,6 @@ steps:
     botToken: '$(token)'
     chats: $(chatId)
     teamUrl: true
+    buildNumber: true
     buildQueuedBy: true
   condition: succeededOrFailed()
