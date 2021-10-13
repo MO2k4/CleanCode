@@ -3,6 +3,11 @@ pool:
   vmImage: windows-latest
   demands: java
 
+trigger:
+ branches:
+   include:
+     - master
+
 variables:
   GRADLE_USER_HOME: $(Pipeline.Workspace)/.gradle
 
