@@ -1,4 +1,4 @@
-<idea-plugin>
+<idea-plugin require-restart="true">
   <id>MO.CleanCode-rider</id>
   <name>CleanCode</name>
   <version>_PLACEHOLDER_</version>
