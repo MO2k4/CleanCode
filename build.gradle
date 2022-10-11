@@ -27,8 +27,6 @@ wrapper {
     distributionUrl = "https://cache-redirector.jetbrains.com/services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
 
-version = ext.ProductVersion
-
 sourceSets {
     main {
         java.srcDir 'src/rider/main/java'
@@ -81,7 +79,7 @@ task compileDotNet {
 buildPlugin {
     doLast {
         copy {
-            from "${buildDir}/distributions/${rootProject.name}-${version}.zip"
+            from "${buildDir}/distributions/${rootProject.name}-${ProductVersion}.zip"
             into "${rootDir}/output"
         }
 
@@ -96,7 +94,7 @@ buildPlugin {
         arguments << "/t:Pack"
         arguments << "/p:PackageOutputPath=${rootDir}/output"
         arguments << "/p:PackageReleaseNotes=${changeNotes}"
-        arguments << "/p:PackageVersion=${version}"
+        arguments << "/p:PackageVersion=${ProductVersion}"
         exec {
             executable setBuildTool.executable
             args arguments
@@ -107,7 +105,7 @@ buildPlugin {
 
 intellij {
     type = 'RD'
-    version = "${version}"
+    version = "${ProductVersion}"
     downloadSources = false
     instrumentCode = false
     // TODO: add plugins
@@ -196,7 +194,7 @@ publishPlugin {
     doLast {
         exec {
             executable "dotnet"
-            args "nuget","push","output/${DotnetPluginId}.${version}.nupkg","--api-key","${PublishToken}","--source","https://plugins.jetbrains.com"
+            args "nuget","push","output/${DotnetPluginId}.${ProductVersion}.nupkg","--api-key","${PublishToken}","--source","https://plugins.jetbrains.com"
             workingDir rootDir
         }
     }
