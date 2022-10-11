@@ -27,7 +27,7 @@ wrapper {
     distributionUrl = "https://cache-redirector.jetbrains.com/services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
 
-version = ext.PluginVersion
+version = ext.ProductVersion
 
 sourceSets {
     main {
