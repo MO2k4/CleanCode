@@ -107,7 +107,7 @@ buildPlugin {
 
 intellij {
     type = 'RD'
-    version = "${ProductVersion}"
+    version = "${version}"
     downloadSources = false
     instrumentCode = false
     // TODO: add plugins
