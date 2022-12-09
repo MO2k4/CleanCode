@@ -8,7 +8,7 @@
 
   <description>
 <![CDATA[
-<p>An experiment in trying to automate some of concepts described in <a href="http://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882" rel="nofollow">Uncle Bob's books on Clean Code</a>.</p>
+<p>An experiment in trying to automate some of concepts described in <a href="https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882" rel="nofollow">Uncle Bob's books on Clean Code</a>.</p>
 <p>This is a ReSharper extension to analyse your C# code to highlight a symptom that your code is becoming too complex, is not "clean" enough. Increased complexity can make your code harder to read, understand and maintain. The plugin currently checks:</p>
 <ul>
 <li><strong>Too many dependencies</strong> - warns when a constructor has too many interfaces passed in.</li>
