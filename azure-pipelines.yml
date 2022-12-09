@@ -21,7 +21,7 @@ steps:
     version: '6.0.x'
     performMultiLevelLookup: true
 
-- task: Gradle@2
+- task: Gradle@3
   displayName: 'Build Plugin'
   inputs:
     gradleWrapperFile: 'gradlew'
