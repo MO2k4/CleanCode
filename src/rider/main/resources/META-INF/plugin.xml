@@ -25,7 +25,14 @@
 ]]>
   </description>
 
+  <resource-bundle>messages.CleanCodeBundle</resource-bundle>
+
   <extensions defaultExtensionNs="com.intellij">
-    <applicationConfigurable parentId="CodeInspectionSettingsId" instance="com.jetbrains.rider.plugins.cleancode.options.CleanCodeOptionsPage" id="CleanCodeAnalysisOptionsPage" />
+    <applicationConfigurable
+      parentId="CodeInspectionSettingsId"
+      instance="com.jetbrains.rider.plugins.cleancode.options.CleanCodeOptionsPage"
+      id="CleanCodeAnalysisOptionPage"
+      bundle="messages.CleanCodeBundle"
+      key="configurable.name.cleancode.options.title" />
   </extensions>
 </idea-plugin>
