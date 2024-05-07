@@ -30,6 +30,14 @@ jobs:
           name: Artifacts
           path: output
 
-      - name: Additional Step
-        run: echo "This step runs only on push events, not on pull requests"
-        if: github.event_name != 'pull_request'
+      - name: Publish plugins
+        run: |
+          RESHARPER_FILENAME=$(ls -m output/*.nupkg)
+          RIDER_FILENAME=$(ls -m output/*.zip)
+
+          echo "Upload resharper plugin"
+          curl -i --header "Authorization: Bearer ${{ secrets.PublishKey }}" -F pluginId=11677 -F file=@output/$RESHARPER_FILENAME -F channel=stable https://plugins.jetbrains.com/plugin/uploadPlugin --fail --silent --show-error
+          
+          echo "Upload rider plugin"
+          curl -i --header "Authorization: Bearer ${{ secrets.PublishKey }}" -F pluginId=12924 -F file=@output/$RIDER_FILENAME -F channel=stable https://plugins.jetbrains.com/plugin/uploadPlugin --fail --silent --show-error
+        # if: github.event_name != 'pull_request'
