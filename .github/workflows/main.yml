@@ -31,6 +31,7 @@ jobs:
           path: output
 
       - name: Publish plugins
+        shell: bash
         run: |
           RESHARPER_FILENAME=$(ls -m output/*.nupkg)
           RIDER_FILENAME=$(ls -m output/*.zip)
