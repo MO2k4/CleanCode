@@ -1,0 +1,32 @@
+name: Create 
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Install .NET 6 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '6.x'
+
+      - name: Build Plugin
+        run: ./gradlew buildPlugin
+
+      - name: Publish Artifact
+        uses: actions/upload-artifact@v4.3.3
+        with:
+          name: Nuget-Paket
+          path: $(System.DefaultWorkingDirectory)/output
+
+      - name: Additional Step
+        run: echo "This step runs only on push events, not on pull requests"
+        if: github.event_name != 'pull_request'
