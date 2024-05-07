@@ -27,8 +27,8 @@ jobs:
       - name: Publish Artifact
         uses: actions/upload-artifact@v4.3.3
         with:
-          name: Nuget-Paket
-          path: $(System.DefaultWorkingDirectory)/output
+          name: Artifacts
+          path: output
 
       - name: Additional Step
         run: echo "This step runs only on push events, not on pull requests"
