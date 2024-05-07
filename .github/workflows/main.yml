@@ -32,13 +32,14 @@ jobs:
 
       - name: Publish plugins
         shell: bash
+        working-directory: ./output
         run: |
-          RESHARPER_FILENAME=$(ls -m output/*.nupkg)
-          RIDER_FILENAME=$(ls -m output/*.zip)
+          RESHARPER_FILENAME=$(ls -m *.nupkg)
+          RIDER_FILENAME=$(ls -m *.zip)
 
-          echo "Upload resharper plugin"
-          curl -i --header "Authorization: Bearer ${{ secrets.PublishKey }}" -F pluginId=11677 -F file=@output/$RESHARPER_FILENAME -F channel=stable https://plugins.jetbrains.com/plugin/uploadPlugin --fail --silent --show-error
+          echo "Upload resharper plugin - $RESHARPER_FILENAME"
+          curl -i --header "Authorization: Bearer ${{ secrets.PublishKey }}" -F pluginId=11677 -F file=@$RESHARPER_FILENAME -F channel=stable https://plugins.jetbrains.com/plugin/uploadPlugin --fail --silent --show-error
           
-          echo "Upload rider plugin"
-          curl -i --header "Authorization: Bearer ${{ secrets.PublishKey }}" -F pluginId=12924 -F file=@output/$RIDER_FILENAME -F channel=stable https://plugins.jetbrains.com/plugin/uploadPlugin --fail --silent --show-error
+          echo "Upload rider plugin - $RIDER_FILENAME"
+          curl -i --header "Authorization: Bearer ${{ secrets.PublishKey }}" -F pluginId=12924 -F file=@$RIDER_FILENAME -F channel=stable https://plugins.jetbrains.com/plugin/uploadPlugin --fail --silent --show-error
         # if: github.event_name != 'pull_request'
