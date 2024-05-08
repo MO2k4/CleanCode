@@ -1,6 +1,6 @@
 # Clean Code ReSharper Plugin Project
 
-[![Build Status](https://dev.azure.com/mo2k4/CleanCode/_apis/build/status/MO2k4.CleanCode?branchName=master)](https://dev.azure.com/mo2k4/CleanCode/_build/latest?definitionId=3&branchName=master)
+[![Build Status](https://github.com/MO2k4/CleanCode/actions/workflows/main.yml/badge.svg)](https://github.com/MO2k4/CleanCode/actions/workflows/main.yml)
 [![Rider](https://img.shields.io/jetbrains/plugin/v/12924-cleancode?label=Rider)](https://plugins.jetbrains.com/plugin/12924-cleancode)
 [![ReSharper](https://img.shields.io/resharper/v/MO.CleanCode?label=ReSharper)](https://plugins.jetbrains.com/plugin/11677-cleancode)
 
