@@ -14,10 +14,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout
+        uses: actions/checkout@v4
 
       - name: Install .NET 6 SDK
-        uses: actions/setup-dotnet
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '6.x'
 
@@ -25,7 +25,7 @@ jobs:
         run: ./gradlew buildPlugin
 
       - name: Publish Artifact
-        uses: actions/upload-artifact
+        uses: actions/upload-artifact@v4.3.3
         with:
           name: Artifacts
           path: output
