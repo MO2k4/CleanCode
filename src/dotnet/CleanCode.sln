@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanCode", "MO.CleanCode\CleanCode.csproj", "{75D73FB6-B8EC-413B-86A9-566A58E1BE4F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanCode", "MO.CleanCode\MO.CleanCode.csproj", "{75D73FB6-B8EC-413B-86A9-566A58E1BE4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanCode.Rider", "MO.CleanCode\CleanCode.Rider.csproj", "{084172D1-A9C6-46D0-96AD-05C5B09A5E5D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanCode.Rider", "MO.CleanCode\MO.CleanCode.Rider.csproj", "{084172D1-A9C6-46D0-96AD-05C5B09A5E5D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{4A9ABB95-3762-448B-B5BF-099E46DB22DE}"
 ProjectSection(SolutionItems) = preProject	
