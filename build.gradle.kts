@@ -141,7 +141,7 @@ tasks.buildPlugin {
 
 dependencies {
     intellijPlatform {
-        rider(ProductVersion)
+        rider(ProductVersion, useInstaller = false)
         jetbrainsRuntime()
         instrumentationTools()
 
