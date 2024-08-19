@@ -197,6 +197,9 @@ tasks.publishPlugin {
 
     doLast {
         exec {
+            val file = file("output/${DotnetPluginId}.${version}.nupkg")
+            if (!file.exists()) throw RuntimeException("File ${file} does not exist")
+
             executable("dotnet")
             args("nuget","push","output/${DotnetPluginId}.${version}.nupkg","--api-key","${PublishToken}","--source","https://plugins.jetbrains.com")
             workingDir(rootDir)
