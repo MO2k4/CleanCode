@@ -21,4 +21,10 @@
     <WaveVersion>$(SdkVersion.Substring(2,2))$(SdkVersion.Substring(5,1)).0.0</WaveVersion>
   </PropertyGroup>
   
+  <ItemDefinitionGroup>
+    <EmbeddedResource>
+      <Generator>JetResourceGenerator</Generator>
+    </EmbeddedResource>
+  </ItemDefinitionGroup>
+
 </Project>
