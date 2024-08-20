@@ -93,6 +93,10 @@ val compileDotNet by tasks.registering {
         val executable: String by setBuildTool.get().extra
         val arguments = (setBuildTool.get().extra["args"] as List<String>).toMutableList()
         arguments.add("/t:Restore;Rebuild")
+
+        println(executable)
+        println(arguments)
+
         exec {
             executable(executable)
             args(arguments)
@@ -131,6 +135,10 @@ tasks.buildPlugin {
         arguments.add("/p:PackageOutputPath=${rootDir}/output")
         arguments.add("/p:PackageReleaseNotes=${changeNotes}")
         arguments.add("/p:PackageVersion=${version}")
+
+        println(executable)
+        println(arguments)
+
         exec {
             executable(executable)
             args(arguments)
@@ -196,11 +204,11 @@ tasks.publishPlugin {
     token.set("${PublishToken}")
 
     doLast {
-        exec {
-            val file = file("output/${DotnetPluginId}.${version}.nupkg")
-            if (!file.exists()) throw RuntimeException("File ${file} does not exist")
-            else print("File ${file} does exist")
+        val file = file("output/${DotnetPluginId}.${version}.nupkg")
+        if (!file.exists()) throw RuntimeException("File ${file} does not exist")
+        else println("File ${file} does exist")
 
+        exec {
             executable("dotnet")
             args("nuget","push","output/${DotnetPluginId}.${version}.nupkg","--api-key","${PublishToken}","--source","https://plugins.jetbrains.com")
             workingDir(rootDir)
