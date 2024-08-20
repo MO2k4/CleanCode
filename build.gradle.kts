@@ -199,6 +199,7 @@ tasks.publishPlugin {
         exec {
             val file = file("output/${DotnetPluginId}.${version}.nupkg")
             if (!file.exists()) throw RuntimeException("File ${file} does not exist")
+            else print("File ${file} does exist")
 
             executable("dotnet")
             args("nuget","push","output/${DotnetPluginId}.${version}.nupkg","--api-key","${PublishToken}","--source","https://plugins.jetbrains.com")
