@@ -36,4 +36,4 @@ jobs:
         run: ./gradlew publishPlugin -PPublishToken="%PublishKey%"
         env:
           PublishKey: ${{ secrets.PublishKey }}
-        # if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request'
