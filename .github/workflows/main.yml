@@ -32,7 +32,7 @@ jobs:
           retention-days: 7
       
       - name: Publish plugins to jetbrains
-        run: ./gradlew --info publishPlugin
+        run: ./gradlew --stacktrace publishPlugin
         env:
           PublishToken: ${{ secrets.PublishKey }}
         # if: github.event_name != 'pull_request'
