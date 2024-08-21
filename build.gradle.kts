@@ -200,7 +200,11 @@ tasks.prepareSandbox {
 
 tasks.publishPlugin {
     // dependsOn(testDotNet)
-    // dependsOn(tasks.buildPlugin)
+    val file = file("output/${DotnetPluginId}.${version}.nupkg")
+    if (!file.exists()) throw RuntimeException("File $file does not exist")
+    else println("File $file does exist")
+
+    dependsOn(tasks.buildPlugin)
     token.set(PublishToken)
 
     doLast {
