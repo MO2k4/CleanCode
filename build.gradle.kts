@@ -80,7 +80,7 @@ val setBuildTool by tasks.registering {
             }
         }
 
-        args.add("${DotnetSolution}")
+        args.add(DotnetSolution)
         args.add("/p:Configuration=${BuildConfiguration}")
         args.add("/p:HostFullIdentifier=")
         extra["args"] = args
@@ -109,7 +109,7 @@ val testDotNet by tasks.registering {
     doLast {
         exec {
             executable("dotnet")
-            args("test","${DotnetSolution}","--logger","GitHubActions")
+            args("test", DotnetSolution,"--logger","GitHubActions")
             workingDir(rootDir)
         }
     }
@@ -200,17 +200,13 @@ tasks.prepareSandbox {
 
 tasks.publishPlugin {
     // dependsOn(testDotNet)
-    dependsOn(tasks.buildPlugin)
-    token.set("${PublishToken}")
+    // dependsOn(tasks.buildPlugin)
+    token.set(PublishToken)
 
     doLast {
-        val file = file("output/${DotnetPluginId}.${version}.nupkg")
-        if (!file.exists()) throw RuntimeException("File ${file} does not exist")
-        else println("File ${file} does exist")
-
         exec {
             executable("dotnet")
-            args("nuget","push","output/${DotnetPluginId}.${version}.nupkg","--api-key","${PublishToken}","--source","https://plugins.jetbrains.com")
+            args("nuget","push","output/${DotnetPluginId}.${version}.nupkg","--api-key", PublishToken,"--source","https://plugins.jetbrains.com")
             workingDir(rootDir)
         }
     }
