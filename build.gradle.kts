@@ -94,9 +94,6 @@ val compileDotNet by tasks.registering {
         val arguments = (setBuildTool.get().extra["args"] as List<String>).toMutableList()
         arguments.add("/t:Restore;Rebuild")
 
-        println(executable)
-        println(arguments)
-
         exec {
             executable(executable)
             args(arguments)
@@ -135,9 +132,6 @@ tasks.buildPlugin {
         arguments.add("/p:PackageOutputPath=${rootDir}/output")
         arguments.add("/p:PackageReleaseNotes=${changeNotes}")
         arguments.add("/p:PackageVersion=${version}")
-
-        println(executable)
-        println(arguments)
 
         exec {
             executable(executable)
