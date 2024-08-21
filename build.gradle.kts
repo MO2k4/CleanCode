@@ -204,7 +204,7 @@ tasks.publishPlugin {
     println("executes publishPlugin")
     dependsOn(tasks.buildPlugin)
     println("set publish token")
-    token.set(PublishToken)
+    token.set(System.getenv("PublishKey"))
 
     doLast {
         exec {
