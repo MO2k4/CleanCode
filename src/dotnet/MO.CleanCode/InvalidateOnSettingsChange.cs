@@ -12,7 +12,7 @@ namespace CleanCode
         public InvalidateOnSettingsChange(Lifetime lifetime, IDaemon daemon, ISettingsStore settingsStore)
         {
             var settingsKey = settingsStore.Schema.GetKey<CleanCodeSettings>();
-            settingsStore.AdviseChange(lifetime, settingsKey, daemon.Invalidate);
+            settingsStore.AdviseChange(lifetime, settingsKey, () => daemon.Invalidate("settings have changed"));
         }
     }
 }
