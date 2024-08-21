@@ -200,16 +200,13 @@ tasks.prepareSandbox {
 
 tasks.publishPlugin {
     // dependsOn(testDotNet)
-
-    println("executes publishPlugin")
     dependsOn(tasks.buildPlugin)
-    println("set publish token")
     token.set(System.getenv("PublishKey"))
 
     doLast {
         exec {
             executable("dotnet")
-            args("nuget","push","output/${DotnetPluginId}.${version}.nupkg","--api-key", PublishToken,"--source","https://plugins.jetbrains.com")
+            args("nuget","push","output/${DotnetPluginId}.${version}.nupkg","--api-key", System.getenv("PublishKey"),"--source","https://plugins.jetbrains.com")
             workingDir(rootDir)
         }
     }
