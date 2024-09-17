@@ -1,15 +1,11 @@
 using CleanCode.Extension;
 using CleanCode.Settings;
-using JetBrains.Application.Settings;
 using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.Psi.VB.Tree;
 
 namespace CleanCode.Features.ComplexExpression
 {
-    // TODO: This might be better working with IOperatorExpression
-    // Walk up from the operator to the highest containing expression
-    // and count depth?
     [ElementProblemAnalyzer(typeof(IBlockIfStatement),
         typeof(IElseIfStatement),
         typeof(IWhileStatement),

@@ -16,7 +16,7 @@ namespace CleanCode.Features.ChainedReferences
     [ConfigurableSeverityHighlighting(SeverityID, CSharpLanguage.Name + "," + VBLanguage.Name)]
     public class MaximumChainedReferencesHighlighting : IHighlighting
     {
-        internal const string SeverityID = "TooManyChainedReferences";
+        private const string SeverityID = "TooManyChainedReferences";
 
         private readonly DocumentRange _documentRange;
 
@@ -36,6 +36,6 @@ namespace CleanCode.Features.ChainedReferences
 
         public string ErrorStripeToolTip => ToolTip;
 
-        public bool IsValid() => true;
+        public bool IsValid() => !string.IsNullOrWhiteSpace(ToolTip);
     }
 }

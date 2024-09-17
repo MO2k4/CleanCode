@@ -1,5 +1,4 @@
 using CleanCode.Settings;
-using JetBrains.Application.Settings;
 using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.Psi.VB.Tree;

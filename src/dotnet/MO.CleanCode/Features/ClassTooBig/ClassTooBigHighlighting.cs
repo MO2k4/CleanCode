@@ -32,6 +32,6 @@ namespace CleanCode.Features.ClassTooBig
 
         public string ErrorStripeToolTip => ToolTip;
 
-        public bool IsValid() => true;
+        public bool IsValid() => !string.IsNullOrWhiteSpace(ToolTip);
     }
 }

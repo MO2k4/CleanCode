@@ -29,6 +29,6 @@ namespace CleanCode.Features.HollowNames
 
         public string ErrorStripeToolTip => ToolTip;
 
-        public bool IsValid() => true;
+        public bool IsValid() => !string.IsNullOrWhiteSpace(ToolTip);
     }
 }

@@ -31,6 +31,6 @@ namespace CleanCode.Features.TooManyDependencies
 
         public string ErrorStripeToolTip => ToolTip;
 
-        public bool IsValid() => true;
+        public bool IsValid() => !string.IsNullOrWhiteSpace(ToolTip);
     }
 }

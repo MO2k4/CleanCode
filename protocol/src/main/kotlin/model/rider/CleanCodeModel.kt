@@ -3,8 +3,6 @@ package model.rider
 import com.jetbrains.rider.model.nova.ide.SolutionModel
 import com.jetbrains.rider.generator.nova.*
 import com.jetbrains.rider.generator.nova.PredefinedType.*
-import com.jetbrains.rider.generator.nova.csharp.CSharp50Generator
-import com.jetbrains.rider.generator.nova.kotlin.Kotlin11Generator
 
 @Suppress("unused")
 object CleanCodeModel : Ext(SolutionModel.Solution) {
@@ -20,9 +18,6 @@ object CleanCodeModel : Ext(SolutionModel.Solution) {
     }
 
     init {
-        //setting(CSharp50Generator.Namespace, "ReSharperPlugin.CleanCode.Rider.Model")
-        //setting(Kotlin11Generator.Namespace, "com.jetbrains.rider.cleancode.model")
-
         property("myString", string)
         property("myBool", bool)
         property("myEnum", MyEnum.nullable)
