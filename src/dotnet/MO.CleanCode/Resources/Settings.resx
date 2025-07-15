@@ -153,4 +153,7 @@
   <data name="IsFlagAnalysisEnabled" xml:space="preserve">
     <value>Is flag analysis active.</value>
   </data>
+  <data name="MaximumPublicMethodsPerClass" xml:space="preserve">
+    <value>Maximum public methods per class</value>
+  </data>
 </root>

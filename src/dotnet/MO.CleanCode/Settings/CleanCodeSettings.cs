@@ -30,7 +30,10 @@ namespace CleanCode.Settings
         [SettingsEntry(4, nameof(MinimumMeaningfulMethodNameLength))]
         public int MinimumMeaningfulMethodNameLength { get; set; }
 
-        [SettingsEntry("Handler,Manager,Processor,Controller,Helper", nameof(MeaninglessClassNameSuffixes))]
+        [SettingsEntry(
+            "Handler,Manager,Processor,Controller,Helper",
+            nameof(MeaninglessClassNameSuffixes)
+        )]
         public string MeaninglessClassNameSuffixes { get; set; }
 
         [SettingsEntry(1, nameof(MaximumExpressionsInCondition))]
@@ -38,5 +41,8 @@ namespace CleanCode.Settings
 
         [SettingsEntry(true, nameof(IsFlagAnalysisEnabled))]
         public bool IsFlagAnalysisEnabled { get; set; }
+
+        [SettingsEntry(15, nameof(MaximumPublicMethodsInClass))]
+        public int MaximumPublicMethodsInClass { get; set; }
     }
 }
