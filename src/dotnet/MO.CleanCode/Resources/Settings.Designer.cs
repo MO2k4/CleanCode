@@ -79,6 +79,15 @@ namespace CleanCode.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Include LINQ methods in chained references count.
+        /// </summary>
+        internal static string IncludeLinqInChainedReferences {
+            get {
+                return ResourceManager.GetString("IncludeLinqInChainedReferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maximum chained references.
         /// </summary>
         internal static string MaximumChainedReferences {

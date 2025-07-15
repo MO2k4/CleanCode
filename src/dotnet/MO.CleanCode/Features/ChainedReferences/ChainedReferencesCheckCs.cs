@@ -1,3 +1,4 @@
+using CleanCode.Features;
 using CleanCode.Settings;
 using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
@@ -22,7 +23,12 @@ namespace CleanCode.Features.ChainedReferences
             var threshold = data.SettingsStore.GetValue(
                 (CleanCodeSettings s) => s.MaximumChainedReferences
             );
-            HighlightMethodChainsThatAreTooLong(element, consumer, threshold);
+
+            var includeLinq = data.SettingsStore.GetValue(
+                (CleanCodeSettings s) => s.IncludeLinqInChainedReferences
+            );
+
+            HighlightMethodChainsThatAreTooLong(element, consumer, threshold, includeLinq);
         }
     }
 }

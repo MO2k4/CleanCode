@@ -44,5 +44,8 @@ namespace CleanCode.Settings
 
         [SettingsEntry(15, nameof(MaximumPublicMethodsInClass))]
         public int MaximumPublicMethodsInClass { get; set; }
+
+        [SettingsEntry(false, nameof(IncludeLinqInChainedReferences))]
+        public bool IncludeLinqInChainedReferences { get; set; }
     }
 }
