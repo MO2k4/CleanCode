@@ -156,4 +156,7 @@
   <data name="MaximumPublicMethodsPerClass" xml:space="preserve">
     <value>Maximum public methods per class</value>
   </data>
+  <data name="IncludeLinqInChainedReferences" xml:space="preserve">
+    <value>Include LINQ methods in chained references count</value>
+  </data>
 </root>

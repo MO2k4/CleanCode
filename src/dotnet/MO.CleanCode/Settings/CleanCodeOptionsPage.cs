@@ -85,6 +85,10 @@ namespace CleanCode.Settings
                 (CleanCodeSettings s) => s.MaximumChainedReferences,
                 Resources.Settings.MaximumChainedReferences
             );
+            AddBoolOption(
+                (CleanCodeSettings s) => s.IncludeLinqInChainedReferences,
+                Resources.Settings.IncludeLinqInChainedReferences
+            );
         }
 
         private void CreateSingleResponsibilitySettings()
