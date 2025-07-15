@@ -7,21 +7,32 @@ using JetBrains.ReSharper.Psi.VB;
 
 namespace CleanCode.Features.MethodTooLong
 {
-    [RegisterConfigurableSeverity(SeverityID,
+    [RegisterConfigurableSeverity(
+        SeverityID,
         null,
         CleanCodeHighlightingGroupIds.CleanCode,
         "Too many Declarations",
         "The method has more declarations than there should be.",
-        Severity.SUGGESTION)]
+        Severity.SUGGESTION
+    )]
     [ConfigurableSeverityHighlighting(SeverityID, CSharpLanguage.Name + "," + VBLanguage.Name)]
     public class MethodTooManyDeclarationsHighlighting : IHighlighting
     {
         internal const string SeverityID = "TooManyDeclarations";
         private readonly DocumentRange _documentRange;
 
-        public MethodTooManyDeclarationsHighlighting(DocumentRange documentRange, int threshold, int currentValue)
+        public MethodTooManyDeclarationsHighlighting(
+            DocumentRange documentRange,
+            int threshold,
+            int currentValue
+        )
         {
-            ToolTip = string.Format(CultureInfo.CurrentCulture, Warnings.TooManyDeclarations, currentValue, threshold);
+            ToolTip = string.Format(
+                CultureInfo.CurrentCulture,
+                Warnings.TooManyDeclarations,
+                currentValue,
+                threshold
+            );
             _documentRange = documentRange;
         }
 

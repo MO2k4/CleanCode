@@ -6,7 +6,8 @@ using JetBrains.ReSharper.Psi.VB.Tree;
 
 namespace CleanCode.Features.ComplexExpression
 {
-    [ElementProblemAnalyzer(typeof(IBlockIfStatement),
+    [ElementProblemAnalyzer(
+        typeof(IBlockIfStatement),
         typeof(IElseIfStatement),
         typeof(IWhileStatement),
         typeof(IForEachStatement),
@@ -14,14 +15,15 @@ namespace CleanCode.Features.ComplexExpression
         typeof(IConditionalExpression),
         typeof(IExpressionStatement),
         typeof(ILineIfStatement),
-        HighlightingTypes = new[]
-        {
-            typeof(ComplexConditionExpressionHighlighting)
-        })]
+        HighlightingTypes = new[] { typeof(ComplexConditionExpressionHighlighting) }
+    )]
     public class ComplexConditionExpressionCheckVb : ElementProblemAnalyzer<IVBTreeNode>
     {
-        protected override void Run(IVBTreeNode element, ElementProblemAnalyzerData data,
-            IHighlightingConsumer consumer)
+        protected override void Run(
+            IVBTreeNode element,
+            ElementProblemAnalyzerData data,
+            IHighlightingConsumer consumer
+        )
         {
             var expression = GetExpression(element);
             if (expression != null)
@@ -32,37 +34,55 @@ namespace CleanCode.Features.ComplexExpression
         {
             switch (node)
             {
-                case IBlockIfStatement blockIfStatement: return blockIfStatement.Expression;
-                case IElseIfStatement elseIfStatement: return elseIfStatement.Expression;
-                case IWhileStatement whileStatement: return whileStatement.Expression;
-                case IForEachStatement forEachStatement: return forEachStatement.Expression;
-                case IForStatement forStatement: return forStatement.StepExpression;
-                case IConditionalExpression conditionalExpression: return conditionalExpression.Condition;
-                case IExpressionStatement expressionStatement: return expressionStatement.Expression;
-                case ILineIfStatement lineIfStatement: return lineIfStatement.Expression;
+                case IBlockIfStatement blockIfStatement:
+                    return blockIfStatement.Expression;
+                case IElseIfStatement elseIfStatement:
+                    return elseIfStatement.Expression;
+                case IWhileStatement whileStatement:
+                    return whileStatement.Expression;
+                case IForEachStatement forEachStatement:
+                    return forEachStatement.Expression;
+                case IForStatement forStatement:
+                    return forStatement.StepExpression;
+                case IConditionalExpression conditionalExpression:
+                    return conditionalExpression.Condition;
+                case IExpressionStatement expressionStatement:
+                    return expressionStatement.Expression;
+                case ILineIfStatement lineIfStatement:
+                    return lineIfStatement.Expression;
                 default:
                     return null;
             }
         }
 
-        private static void CheckExpression(IExpression expression, ElementProblemAnalyzerData data, IHighlightingConsumer consumer)
+        private static void CheckExpression(
+            IExpression expression,
+            ElementProblemAnalyzerData data,
+            IHighlightingConsumer consumer
+        )
         {
-            var maxExpressions = data.SettingsStore.GetValue((CleanCodeSettings s) => s.MaximumExpressionsInCondition);
+            var maxExpressions = data.SettingsStore.GetValue(
+                (CleanCodeSettings s) => s.MaximumExpressionsInCondition
+            );
             var expressionCount = GetExpressionCount(expression);
 
             if (expressionCount > maxExpressions)
             {
                 var documentRange = expression.GetDocumentRange();
-                var highlighting = new ComplexConditionExpressionHighlighting(documentRange, maxExpressions, expressionCount);
+                var highlighting = new ComplexConditionExpressionHighlighting(
+                    documentRange,
+                    maxExpressions,
+                    expressionCount
+                );
                 consumer.AddHighlighting(highlighting);
             }
         }
 
         private static int GetExpressionCount(IExpression expression)
         {
-            return expression.GetExpressionCount<IRelationalExpression>() +
-                expression.GetExpressionCount<ILogicalAndExpression>() +
-                expression.GetExpressionCount<ILogicalOrExpression>();
+            return expression.GetExpressionCount<IRelationalExpression>()
+                + expression.GetExpressionCount<ILogicalAndExpression>()
+                + expression.GetExpressionCount<ILogicalOrExpression>();
         }
     }
 }

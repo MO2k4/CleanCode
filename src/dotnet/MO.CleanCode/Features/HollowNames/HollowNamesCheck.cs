@@ -14,7 +14,11 @@ public abstract class HollowNamesCheck<T> : ElementProblemAnalyzer<T>
 {
     private static readonly string[] Separator = { "," };
 
-    protected static void CheckAndAddHighlighting(IDeclaration element, ElementProblemAnalyzerData data,  IHighlightingConsumer consumer)
+    protected static void CheckAndAddHighlighting(
+        IDeclaration element,
+        ElementProblemAnalyzerData data,
+        IHighlightingConsumer consumer
+    )
     {
         var suffixes = GetSuffixes(data.SettingsStore);
 
@@ -22,10 +26,12 @@ public abstract class HollowNamesCheck<T> : ElementProblemAnalyzer<T>
         if (match != null)
             AddHighlighting(match, consumer, element);
     }
-        
+
     private static string[] GetSuffixes(IContextBoundSettingsStore dataSettingsStore)
     {
-        var suffixes = dataSettingsStore.GetValue((CleanCodeSettings s) => s.MeaninglessClassNameSuffixes);
+        var suffixes = dataSettingsStore.GetValue(
+            (CleanCodeSettings s) => s.MeaninglessClassNameSuffixes
+        );
         return suffixes.Split(Separator, StringSplitOptions.RemoveEmptyEntries);
     }
 
@@ -34,10 +40,18 @@ public abstract class HollowNamesCheck<T> : ElementProblemAnalyzer<T>
         return suffixes.FirstOrDefault(declaredName.EndsWith);
     }
 
-    private static void AddHighlighting(string bannedSuffix, IHighlightingConsumer consumer, ITreeNode treeNode)
+    private static void AddHighlighting(
+        string bannedSuffix,
+        IHighlightingConsumer consumer,
+        ITreeNode treeNode
+    )
     {
         var documentRange = treeNode.GetDocumentRange();
-        var toolTip = string.Format(CultureInfo.CurrentCulture, Warnings.HollowTypeName, bannedSuffix);
+        var toolTip = string.Format(
+            CultureInfo.CurrentCulture,
+            Warnings.HollowTypeName,
+            bannedSuffix
+        );
         var highlighting = new HollowTypeNameHighlighting(toolTip, documentRange);
         consumer.AddHighlighting(highlighting);
     }

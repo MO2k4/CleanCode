@@ -7,12 +7,14 @@ using JetBrains.ReSharper.Psi.VB;
 
 namespace CleanCode.Features.ChainedReferences
 {
-    [RegisterConfigurableSeverity(SeverityID,
+    [RegisterConfigurableSeverity(
+        SeverityID,
         null,
         CleanCodeHighlightingGroupIds.CleanCode,
         "Too many chained references",
         "Too many chained references can break the Law of Demeter.",
-        Severity.WARNING)]
+        Severity.WARNING
+    )]
     [ConfigurableSeverityHighlighting(SeverityID, CSharpLanguage.Name + "," + VBLanguage.Name)]
     public class MaximumChainedReferencesHighlighting : IHighlighting
     {
@@ -20,12 +22,18 @@ namespace CleanCode.Features.ChainedReferences
 
         private readonly DocumentRange _documentRange;
 
-        public MaximumChainedReferencesHighlighting(DocumentRange documentRange, int threshold, int currentValue)
+        public MaximumChainedReferencesHighlighting(
+            DocumentRange documentRange,
+            int threshold,
+            int currentValue
+        )
         {
-            ToolTip = string.Format(CultureInfo.CurrentCulture,
+            ToolTip = string.Format(
+                CultureInfo.CurrentCulture,
                 Warnings.ChainedReferences,
                 currentValue,
-                threshold);
+                threshold
+            );
 
             _documentRange = documentRange;
         }

@@ -6,6 +6,7 @@ namespace CleanCode.Extension
 {
     public static class ExpressionExt
     {
-        public static int GetExpressionCount<T>(this IExpression expression) where T : ITreeNode => expression.GetChildrenRecursive<T>().Count();
+        public static int GetExpressionCount<T>(this IExpression expression)
+            where T : ITreeNode => expression.GetChildrenRecursive<T>().Count();
     }
 }

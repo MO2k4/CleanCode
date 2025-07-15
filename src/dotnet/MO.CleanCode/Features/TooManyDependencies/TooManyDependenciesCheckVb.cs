@@ -7,21 +7,33 @@ using JetBrains.ReSharper.Psi.VB.Tree;
 
 namespace CleanCode.Features.TooManyDependencies
 {
-    [ElementProblemAnalyzer(typeof(IConstructorDeclaration), HighlightingTypes = new[]
-    {
-        typeof(TooManyDependenciesHighlighting)
-    })]
+    [ElementProblemAnalyzer(
+        typeof(IConstructorDeclaration),
+        HighlightingTypes = new[] { typeof(TooManyDependenciesHighlighting) }
+    )]
     public class TooManyDependenciesCheckVb : ElementProblemAnalyzer<IConstructorDeclaration>
     {
-        protected override void Run(IConstructorDeclaration element, ElementProblemAnalyzerData data, IHighlightingConsumer consumer)
+        protected override void Run(
+            IConstructorDeclaration element,
+            ElementProblemAnalyzerData data,
+            IHighlightingConsumer consumer
+        )
         {
-            var maxDependencies = data.SettingsStore.GetValue((CleanCodeSettings s) => s.MaximumConstructorDependencies);
-            var dependencies = element.ParameterDeclarations.Select(declaration => (declaration.DeclaredElement?.Type).IsInterfaceType());
+            var maxDependencies = data.SettingsStore.GetValue(
+                (CleanCodeSettings s) => s.MaximumConstructorDependencies
+            );
+            var dependencies = element.ParameterDeclarations.Select(declaration =>
+                (declaration.DeclaredElement?.Type).IsInterfaceType()
+            );
 
             var dependenciesCount = dependencies.Count();
             if (dependenciesCount > maxDependencies)
             {
-                var highlighting = new TooManyDependenciesHighlighting(element.GetNameDocumentRange(), maxDependencies, dependenciesCount);
+                var highlighting = new TooManyDependenciesHighlighting(
+                    element.GetNameDocumentRange(),
+                    maxDependencies,
+                    dependenciesCount
+                );
                 consumer.AddHighlighting(highlighting);
             }
         }
