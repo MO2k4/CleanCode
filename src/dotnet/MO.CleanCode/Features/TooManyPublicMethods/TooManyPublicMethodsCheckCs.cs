@@ -1,13 +1,14 @@
 using JetBrains.ReSharper.Feature.Services.Daemon;
+using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 
-namespace CleanCode.Features.ClassTooBig
+namespace CleanCode.Features.TooManyPublicMethods
 {
     [ElementProblemAnalyzer(
         typeof(IClassDeclaration),
-        HighlightingTypes = new[] { typeof(ClassTooBigHighlighting) }
+        HighlightingTypes = new[] { typeof(TooManyPublicMethodsHighlighting) }
     )]
-    public class ClassTooBigCheckCs : ClassTooBigCheck<IClassDeclaration>
+    public class TooManyPublicMethodsCheckCs : TooManyPublicMethodsCheck<IClassDeclaration>
     {
         protected override void Run(
             IClassDeclaration element,
@@ -15,11 +16,12 @@ namespace CleanCode.Features.ClassTooBig
             IHighlightingConsumer consumer
         )
         {
-            CheckIfClassIsTooBig<IMethodDeclaration>(
+            CheckIfClassHasTooManyPublicMethods<IMethodDeclaration>(
                 element.NameIdentifier,
                 element,
                 data,
-                consumer
+                consumer,
+                method => method.GetAccessRights() == AccessRights.PUBLIC
             );
         }
     }

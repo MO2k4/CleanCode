@@ -7,24 +7,32 @@ using JetBrains.ReSharper.Psi.VB;
 
 namespace CleanCode.Features.TooManyMethodArguments
 {
-    [RegisterConfigurableSeverity(SeverityID,
+    [RegisterConfigurableSeverity(
+        SeverityID,
         null,
         CleanCodeHighlightingGroupIds.CleanCode,
         "Too many arguments",
         "Too many arguments passed to a method.",
-        Severity.WARNING)]
+        Severity.WARNING
+    )]
     [ConfigurableSeverityHighlighting(SeverityID, CSharpLanguage.Name + "," + VBLanguage.Name)]
     public class TooManyArgumentsHighlighting : IHighlighting
     {
         internal const string SeverityID = "TooManyArguments";
         private readonly DocumentRange _documentRange;
 
-        public TooManyArgumentsHighlighting(DocumentRange documentRange, int threshold, int currentValue)
+        public TooManyArgumentsHighlighting(
+            DocumentRange documentRange,
+            int threshold,
+            int currentValue
+        )
         {
-            ToolTip = string.Format(CultureInfo.CurrentCulture,
+            ToolTip = string.Format(
+                CultureInfo.CurrentCulture,
                 Warnings.TooManyMethodArguments,
                 currentValue,
-                threshold);
+                threshold
+            );
 
             _documentRange = documentRange;
         }

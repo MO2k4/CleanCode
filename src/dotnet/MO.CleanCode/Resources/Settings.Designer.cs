@@ -131,16 +131,18 @@ namespace CleanCode.Resources {
                 return ResourceManager.GetString("MaximumMethodsPerClass", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Maximum statements per method.
         /// </summary>
-        internal static string MaximumStatementsPerMethod {
-            get {
+        internal static string MaximumStatementsPerMethod
+        {
+            get
+            {
                 return ResourceManager.GetString("MaximumStatementsPerMethod", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to List of meaningless suffixes.
         /// </summary>
@@ -149,13 +151,24 @@ namespace CleanCode.Resources {
                 return ResourceManager.GetString("MeaninglessNameSuffixes", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Separate items with commas.
         /// </summary>
         internal static string MeaninglessNameSuffixesTooltip {
             get {
                 return ResourceManager.GetString("MeaninglessNameSuffixesTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum public methods per class.
+        /// </summary>
+        internal static string MaximumPublicMethodsPerClass
+        {
+            get
+            {
+                return ResourceManager.GetString("MaximumPublicMethodsPerClass", resourceCulture);
             }
         }
         

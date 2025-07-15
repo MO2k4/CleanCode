@@ -5,23 +5,24 @@ using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.VB;
 
-namespace CleanCode.Features.MethodTooLong
+namespace CleanCode.Features.TooManyPublicMethods
 {
     [RegisterConfigurableSeverity(
         SeverityID,
         null,
         CleanCodeHighlightingGroupIds.CleanCode,
-        "Too many Declarations",
-        "The method has more declarations than there should be.",
+        "Too many public methods",
+        "This class exposes too many public methods",
         Severity.SUGGESTION
     )]
     [ConfigurableSeverityHighlighting(SeverityID, CSharpLanguage.Name + "," + VBLanguage.Name)]
-    public class MethodTooManyDeclarationsHighlighting : IHighlighting
+    public class TooManyPublicMethodsHighlighting : IHighlighting
     {
-        internal const string SeverityID = "TooManyDeclarations";
+        internal const string SeverityID = "TooManyPublicMethods";
+
         private readonly DocumentRange _documentRange;
 
-        public MethodTooManyDeclarationsHighlighting(
+        public TooManyPublicMethodsHighlighting(
             DocumentRange documentRange,
             int threshold,
             int currentValue
@@ -29,7 +30,7 @@ namespace CleanCode.Features.MethodTooLong
         {
             ToolTip = string.Format(
                 CultureInfo.CurrentCulture,
-                Warnings.TooManyDeclarations,
+                Warnings.TooManyPublicMethods,
                 currentValue,
                 threshold
             );

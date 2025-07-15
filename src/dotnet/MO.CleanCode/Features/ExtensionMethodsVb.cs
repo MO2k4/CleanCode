@@ -1,6 +1,6 @@
 using System.Linq;
-using JetBrains.ReSharper.Psi.VB.Tree;
 using JetBrains.ReSharper.Psi.Tree;
+using JetBrains.ReSharper.Psi.VB.Tree;
 
 namespace CleanCode.Features
 {
@@ -14,8 +14,8 @@ namespace CleanCode.Features
             if (firstChildNode == null)
                 return null;
 
-            return firstChildNode as IReferenceExpression ??
-                   TryGetFirstReferenceExpression(firstChildNode);
+            return firstChildNode as IReferenceExpression
+                ?? TryGetFirstReferenceExpression(firstChildNode);
         }
     }
 }

@@ -6,12 +6,14 @@ using JetBrains.ReSharper.Psi.VB;
 
 namespace CleanCode.Features.MethodNameNotMeaningful
 {
-    [RegisterConfigurableSeverity(SeverityID,
+    [RegisterConfigurableSeverity(
+        SeverityID,
         null,
         CleanCodeHighlightingGroupIds.CleanCode,
         "Method name not meaningful",
         "This method name is too short to be meaningful.",
-        Severity.WARNING)]
+        Severity.WARNING
+    )]
     [ConfigurableSeverityHighlighting(SeverityID, CSharpLanguage.Name + "," + VBLanguage.Name)]
     public class MethodNameNotMeaningfulHighlighting : IHighlighting
     {

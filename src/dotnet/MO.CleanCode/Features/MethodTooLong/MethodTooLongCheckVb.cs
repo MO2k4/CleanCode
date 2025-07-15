@@ -3,10 +3,17 @@ using JetBrains.ReSharper.Psi.VB.Tree;
 
 namespace CleanCode.Features.MethodTooLong
 {
-    [ElementProblemAnalyzer(typeof(IMethodDeclaration), HighlightingTypes = new[] { typeof(MethodTooLongHighlighting) })]
+    [ElementProblemAnalyzer(
+        typeof(IMethodDeclaration),
+        HighlightingTypes = new[] { typeof(MethodTooLongHighlighting) }
+    )]
     public class MethodTooLongCheckVb : MethodTooLongCheck<IMethodDeclaration>
     {
-        protected override void Run(IMethodDeclaration element, ElementProblemAnalyzerData data, IHighlightingConsumer consumer)
+        protected override void Run(
+            IMethodDeclaration element,
+            ElementProblemAnalyzerData data,
+            IHighlightingConsumer consumer
+        )
         {
             CheckAndAddHighlight(element, data, consumer);
         }

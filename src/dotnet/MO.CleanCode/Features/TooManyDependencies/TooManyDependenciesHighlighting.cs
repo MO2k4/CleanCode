@@ -7,21 +7,32 @@ using JetBrains.ReSharper.Psi.VB;
 
 namespace CleanCode.Features.TooManyDependencies
 {
-    [RegisterConfigurableSeverity(SeverityID,
+    [RegisterConfigurableSeverity(
+        SeverityID,
         null,
         CleanCodeHighlightingGroupIds.CleanCode,
         "Too many dependencies",
         "Too many dependencies passed into constructor.",
-        Severity.WARNING)]
+        Severity.WARNING
+    )]
     [ConfigurableSeverityHighlighting(SeverityID, CSharpLanguage.Name + "," + VBLanguage.Name)]
     public class TooManyDependenciesHighlighting : IHighlighting
     {
         internal const string SeverityID = "TooManyDependencies";
         private readonly DocumentRange _documentRange;
 
-        public TooManyDependenciesHighlighting(DocumentRange documentRange, int threshold, int currentValue)
+        public TooManyDependenciesHighlighting(
+            DocumentRange documentRange,
+            int threshold,
+            int currentValue
+        )
         {
-            ToolTip = string.Format(CultureInfo.CurrentCulture, Warnings.TooManyDependencies, currentValue, threshold);
+            ToolTip = string.Format(
+                CultureInfo.CurrentCulture,
+                Warnings.TooManyDependencies,
+                currentValue,
+                threshold
+            );
             _documentRange = documentRange;
         }
 

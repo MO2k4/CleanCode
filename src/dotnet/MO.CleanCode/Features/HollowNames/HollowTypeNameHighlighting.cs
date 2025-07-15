@@ -5,12 +5,14 @@ using JetBrains.ReSharper.Psi.VB;
 
 namespace CleanCode.Features.HollowNames
 {
-    [RegisterConfigurableSeverity(SeverityID,
+    [RegisterConfigurableSeverity(
+        SeverityID,
         null,
         CleanCodeHighlightingGroupIds.CleanCode,
         "Hollow type name",
         "This type has a name that doesn't express its intent.",
-        Severity.SUGGESTION)]
+        Severity.SUGGESTION
+    )]
     [ConfigurableSeverityHighlighting(SeverityID, CSharpLanguage.Name + "," + VBLanguage.Name)]
     public class HollowTypeNameHighlighting : IHighlighting
     {

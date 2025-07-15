@@ -7,12 +7,14 @@ using JetBrains.ReSharper.Psi.VB;
 
 namespace CleanCode.Features.ComplexExpression
 {
-    [RegisterConfigurableSeverity(SeverityID,
+    [RegisterConfigurableSeverity(
+        SeverityID,
         null,
         CleanCodeHighlightingGroupIds.CleanCode,
         "Condition expression too complex",
         "The expression in the condition is too complex.",
-        Severity.WARNING)]
+        Severity.WARNING
+    )]
     [ConfigurableSeverityHighlighting(SeverityID, CSharpLanguage.Name + "," + VBLanguage.Name)]
     public class ComplexConditionExpressionHighlighting : IHighlighting
     {
@@ -20,9 +22,18 @@ namespace CleanCode.Features.ComplexExpression
 
         private readonly DocumentRange _documentRange;
 
-        public ComplexConditionExpressionHighlighting(DocumentRange documentRange, int threshold, int currentValue)
+        public ComplexConditionExpressionHighlighting(
+            DocumentRange documentRange,
+            int threshold,
+            int currentValue
+        )
         {
-            ToolTip = string.Format(CultureInfo.CurrentCulture, Warnings.ExpressionTooComplex, currentValue, threshold);
+            ToolTip = string.Format(
+                CultureInfo.CurrentCulture,
+                Warnings.ExpressionTooComplex,
+                currentValue,
+                threshold
+            );
             _documentRange = documentRange;
         }
 

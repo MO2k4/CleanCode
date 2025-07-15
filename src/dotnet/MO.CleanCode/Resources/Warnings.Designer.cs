@@ -158,5 +158,14 @@ namespace CleanCode.Resources {
                 return ResourceManager.GetString("TooManyMethodArguments", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Class contains too many public methods. This might be violating the Single Responsibility Principle and exposing too much of its implementation. ({0} / {1}).
+        /// </summary>
+        internal static string TooManyPublicMethods {
+            get {
+                return ResourceManager.GetString("TooManyPublicMethods", resourceCulture);
+            }
+        }
     }
 }

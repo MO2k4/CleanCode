@@ -5,12 +5,14 @@ using JetBrains.ReSharper.Psi.CSharp;
 
 namespace CleanCode.Features.FlagArguments
 {
-    [RegisterConfigurableSeverity(SeverityID,
+    [RegisterConfigurableSeverity(
+        SeverityID,
         null,
         CleanCodeHighlightingGroupIds.CleanCode,
         "Flag argument",
         "An argument that is used as a flag.",
-        Severity.WARNING)]
+        Severity.WARNING
+    )]
     [ConfigurableSeverityHighlighting(SeverityID, CSharpLanguage.Name)]
     public class FlagArgumentsHighlighting : IHighlighting
     {

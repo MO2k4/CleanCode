@@ -11,7 +11,8 @@ namespace CleanCode.Features
 {
     public static class ExtensionMethodsCsharp
     {
-        public static int CountChildren<T>(this ITreeNode node) where T : ITreeNode
+        public static int CountChildren<T>(this ITreeNode node)
+            where T : ITreeNode
         {
             var treeNodes = node.Children().ToList();
 
@@ -24,7 +25,6 @@ namespace CleanCode.Features
             }
             return count;
         }
-
 
         public static int GetChildrenDepth(this ITreeNode node)
         {
@@ -43,7 +43,8 @@ namespace CleanCode.Features
             return childrenDepth;
         }
 
-        public static IEnumerable<T> GetFlattenedHierarchyOfType<T>(this ITreeNode root) where T : class, ITreeNode
+        public static IEnumerable<T> GetFlattenedHierarchyOfType<T>(this ITreeNode root)
+            where T : class, ITreeNode
         {
             var list = new List<T>();
             if (root is T rootAsType)
@@ -54,7 +55,8 @@ namespace CleanCode.Features
             return list;
         }
 
-        public static IEnumerable<T> GetChildrenRecursive<T>(this ITreeNode node) where T : ITreeNode
+        public static IEnumerable<T> GetChildrenRecursive<T>(this ITreeNode node)
+            where T : ITreeNode
         {
             var nodeChildren = node.Children().ToList();
 
@@ -97,7 +99,8 @@ namespace CleanCode.Features
                     return TryGetClosedReturnTypeFromReference(reference.Reference);
                 case IInvocationExpression invocationExpression:
                     return TryGetClosedReturnTypeFromReference(invocationExpression.Reference);
-                default: return null;
+                default:
+                    return null;
             }
         }
 
@@ -109,8 +112,8 @@ namespace CleanCode.Features
             if (firstChildNode == null)
                 return null;
 
-            return firstChildNode as IReferenceExpression ??
-                   TryGetFirstReferenceExpression(firstChildNode);
+            return firstChildNode as IReferenceExpression
+                ?? TryGetFirstReferenceExpression(firstChildNode);
         }
 
         private static IType TryGetClosedReturnTypeFromReference(IReference reference)
@@ -121,13 +124,18 @@ namespace CleanCode.Features
             if (declaredElement is IParametersOwner parametersOwner)
             {
                 var returnType = parametersOwner.ReturnType;
-                return returnType.IsOpenType ? GetClosedType(resolveResultWithInfo, returnType) : returnType;
+                return returnType.IsOpenType
+                    ? GetClosedType(resolveResultWithInfo, returnType)
+                    : returnType;
             }
 
             return null;
         }
 
-        private static IType GetClosedType(ResolveResultWithInfo resolveResultWithInfo, IType returnType)
+        private static IType GetClosedType(
+            ResolveResultWithInfo resolveResultWithInfo,
+            IType returnType
+        )
         {
             return resolveResultWithInfo.Result.Substitution.Apply(returnType);
         }

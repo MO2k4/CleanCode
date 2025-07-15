@@ -6,19 +6,21 @@ using JetBrains.ReSharper.Psi.Tree;
 
 namespace CleanCode.Features.ComplexExpression
 {
-    [ElementProblemAnalyzer(typeof(IIfStatement),
+    [ElementProblemAnalyzer(
+        typeof(IIfStatement),
         typeof(ILoopWithConditionStatement),
         typeof(IConditionalTernaryExpression),
         typeof(IAssignmentExpression),
         typeof(IExpressionInitializer),
-        HighlightingTypes = new[]
-        {
-            typeof(ComplexConditionExpressionHighlighting)
-        })]
+        HighlightingTypes = new[] { typeof(ComplexConditionExpressionHighlighting) }
+    )]
     public class ComplexConditionExpressionCheckCs : ElementProblemAnalyzer<ICSharpTreeNode>
     {
-        protected override void Run(ICSharpTreeNode element, ElementProblemAnalyzerData data,
-            IHighlightingConsumer consumer)
+        protected override void Run(
+            ICSharpTreeNode element,
+            ElementProblemAnalyzerData data,
+            IHighlightingConsumer consumer
+        )
         {
             var expression = GetExpression(element);
             if (expression != null)
@@ -29,25 +31,40 @@ namespace CleanCode.Features.ComplexExpression
         {
             switch (node)
             {
-                case ILoopWithConditionStatement loopWithConditionStatement: return loopWithConditionStatement.Condition;
-                case IIfStatement ifStatement: return ifStatement.Condition;
-                case IConditionalTernaryExpression conditionalTernaryExpression: return conditionalTernaryExpression.ConditionOperand;
-                case IAssignmentExpression assignmentExpression: return assignmentExpression.Source;
-                case IExpressionInitializer expressionInitializer: return expressionInitializer.Value;
+                case ILoopWithConditionStatement loopWithConditionStatement:
+                    return loopWithConditionStatement.Condition;
+                case IIfStatement ifStatement:
+                    return ifStatement.Condition;
+                case IConditionalTernaryExpression conditionalTernaryExpression:
+                    return conditionalTernaryExpression.ConditionOperand;
+                case IAssignmentExpression assignmentExpression:
+                    return assignmentExpression.Source;
+                case IExpressionInitializer expressionInitializer:
+                    return expressionInitializer.Value;
                 default:
                     return null;
             }
         }
 
-        private static void CheckExpression(IExpression expression, ElementProblemAnalyzerData data, IHighlightingConsumer consumer)
+        private static void CheckExpression(
+            IExpression expression,
+            ElementProblemAnalyzerData data,
+            IHighlightingConsumer consumer
+        )
         {
-            var maxExpressions = data.SettingsStore.GetValue((CleanCodeSettings s) => s.MaximumExpressionsInCondition);
+            var maxExpressions = data.SettingsStore.GetValue(
+                (CleanCodeSettings s) => s.MaximumExpressionsInCondition
+            );
             var expressionCount = expression.GetChildrenRecursive<IOperatorExpression>().Count();
 
             if (expressionCount > maxExpressions)
             {
                 var documentRange = expression.GetDocumentRange();
-                var highlighting = new ComplexConditionExpressionHighlighting(documentRange, maxExpressions, expressionCount);
+                var highlighting = new ComplexConditionExpressionHighlighting(
+                    documentRange,
+                    maxExpressions,
+                    expressionCount
+                );
                 consumer.AddHighlighting(highlighting);
             }
         }

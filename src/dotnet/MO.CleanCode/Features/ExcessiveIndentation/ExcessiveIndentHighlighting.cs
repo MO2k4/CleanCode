@@ -6,21 +6,32 @@ using JetBrains.ReSharper.Psi.CSharp;
 
 namespace CleanCode.Features.ExcessiveIndentation
 {
-    [RegisterConfigurableSeverity(SeverityID,
+    [RegisterConfigurableSeverity(
+        SeverityID,
         null,
         CleanCodeHighlightingGroupIds.CleanCode,
         "Excessive indentation",
         "The nesting in this method is excessive.",
-        Severity.WARNING)]
+        Severity.WARNING
+    )]
     [ConfigurableSeverityHighlighting(SeverityID, CSharpLanguage.Name)]
     public class ExcessiveIndentHighlighting : IHighlighting
     {
         internal const string SeverityID = "ExcessiveIndentation";
         private readonly DocumentRange _documentRange;
 
-        public ExcessiveIndentHighlighting(DocumentRange documentRange, int threshold, int currentValue)
+        public ExcessiveIndentHighlighting(
+            DocumentRange documentRange,
+            int threshold,
+            int currentValue
+        )
         {
-            ToolTip = string.Format(CultureInfo.CurrentCulture, Warnings.ExcessiveDepth, currentValue, threshold);
+            ToolTip = string.Format(
+                CultureInfo.CurrentCulture,
+                Warnings.ExcessiveDepth,
+                currentValue,
+                threshold
+            );
             _documentRange = documentRange;
         }
 

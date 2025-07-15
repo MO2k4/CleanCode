@@ -7,12 +7,14 @@ using JetBrains.ReSharper.Psi.VB;
 
 namespace CleanCode.Features.ClassTooBig
 {
-    [RegisterConfigurableSeverity(SeverityID,
+    [RegisterConfigurableSeverity(
+        SeverityID,
         null,
         CleanCodeHighlightingGroupIds.CleanCode,
         "Class too big",
         "This class contains too many methods",
-        Severity.SUGGESTION)]
+        Severity.SUGGESTION
+    )]
     [ConfigurableSeverityHighlighting(SeverityID, CSharpLanguage.Name + "," + VBLanguage.Name)]
     public class ClassTooBigHighlighting : IHighlighting
     {
@@ -22,7 +24,12 @@ namespace CleanCode.Features.ClassTooBig
 
         public ClassTooBigHighlighting(DocumentRange documentRange, int threshold, int currentValue)
         {
-            ToolTip = string.Format(CultureInfo.CurrentCulture, Warnings.ClassTooBig, currentValue, threshold);
+            ToolTip = string.Format(
+                CultureInfo.CurrentCulture,
+                Warnings.ClassTooBig,
+                currentValue,
+                threshold
+            );
             _documentRange = documentRange;
         }
 

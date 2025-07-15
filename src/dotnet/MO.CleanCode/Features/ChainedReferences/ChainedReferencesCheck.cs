@@ -8,7 +8,11 @@ namespace CleanCode.Features.ChainedReferences;
 
 public abstract class ChainedReferencesCheck<T> : ElementProblemAnalyzer<T>
 {
-    protected static void HighlightMethodChainsThatAreTooLong(ITreeNode statement, IHighlightingConsumer consumer, int threshold)
+    protected static void HighlightMethodChainsThatAreTooLong(
+        ITreeNode statement,
+        IHighlightingConsumer consumer,
+        int threshold
+    )
     {
         var children = statement.Children();
 
@@ -25,7 +29,11 @@ public abstract class ChainedReferencesCheck<T> : ElementProblemAnalyzer<T>
         }
     }
 
-    private static void HighlightReferenceExpressionIfNeeded(IReferenceExpression referenceExpression, IHighlightingConsumer consumer, int threshold)
+    private static void HighlightReferenceExpressionIfNeeded(
+        IReferenceExpression referenceExpression,
+        IHighlightingConsumer consumer,
+        int threshold
+    )
     {
         var types = new HashSet<IType>();
 
@@ -34,7 +42,9 @@ public abstract class ChainedReferencesCheck<T> : ElementProblemAnalyzer<T>
 
         while (nextReferenceExpression != null)
         {
-            var childReturnType = ExtensionMethodsCsharp.TryGetClosedReturnTypeFrom(nextReferenceExpression);
+            var childReturnType = ExtensionMethodsCsharp.TryGetClosedReturnTypeFrom(
+                nextReferenceExpression
+            );
 
             if (childReturnType != null)
             {
@@ -42,7 +52,9 @@ public abstract class ChainedReferencesCheck<T> : ElementProblemAnalyzer<T>
                 chainLength++;
             }
 
-            nextReferenceExpression = ExtensionMethodsVb.TryGetFirstReferenceExpression(nextReferenceExpression);
+            nextReferenceExpression = ExtensionMethodsVb.TryGetFirstReferenceExpression(
+                nextReferenceExpression
+            );
         }
 
         var isFluentChain = types.Count == 1;
@@ -52,11 +64,20 @@ public abstract class ChainedReferencesCheck<T> : ElementProblemAnalyzer<T>
         }
     }
 
-    private static void AddHighlighting(IReferenceExpression reference, IHighlightingConsumer consumer, int threshold, int currentValue)
+    private static void AddHighlighting(
+        IReferenceExpression reference,
+        IHighlightingConsumer consumer,
+        int threshold,
+        int currentValue
+    )
     {
         var nameIdentifier = reference.NameIdentifier;
         var documentRange = nameIdentifier.GetDocumentRange();
-        var highlighting = new MaximumChainedReferencesHighlighting(documentRange, threshold, currentValue);
+        var highlighting = new MaximumChainedReferencesHighlighting(
+            documentRange,
+            threshold,
+            currentValue
+        );
         consumer.AddHighlighting(highlighting);
     }
 }
