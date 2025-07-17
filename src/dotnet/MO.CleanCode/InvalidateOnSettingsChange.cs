@@ -6,7 +6,7 @@ using JetBrains.ReSharper.Feature.Services.Daemon;
 
 namespace CleanCode
 {
-    [SolutionComponent(JetBrains.Application.Parts.Instantiation.DemandAnyThreadSafe)]
+    [SolutionComponent(JetBrains.Application.Parts.Instantiation.ContainerAsyncPrimaryThread)]
     public class InvalidateOnSettingsChange
     {
         public InvalidateOnSettingsChange(
