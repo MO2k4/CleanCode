@@ -54,8 +54,16 @@ sourceSets {
     }
 }
 
-tasks.compileKotlin {
-    kotlinOptions { jvmTarget = "17" }
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    }
 }
 
 val setBuildTool by tasks.registering {
