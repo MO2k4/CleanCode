@@ -21,6 +21,15 @@ jobs:
         with:
           dotnet-version: '6.x'
 
+      - uses: actions/cache@v4
+        with:
+          path: |
+            build/gradle-jvm
+            ~/.nuget/packages
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-Build-${{ hashFiles('gradlew.bat', 'src/dotnet/*/*.csproj', 'src/dotnet/*.props', 'gradle-wrapper.properties') }}
+
       - name: Build Plugin
         run: ./gradlew buildPlugin
 
@@ -33,7 +42,7 @@ jobs:
       
       - name: Publish plugins to jetbrains
         shell: cmd
-        run: ./gradlew publishPlugin -PPublishToken="%PublishKey%"
+        run: ./gradlew publishPlugin -PBuildConfiguration="Release" -PPublishToken="%PublishKey%"
         env:
           PublishKey: ${{ secrets.PublishKey }}
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
