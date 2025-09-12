@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <AssemblyName>MO.CleanCode.Tests</AssemblyName>
+    <RootNamespace>CleanCode.Tests</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="GitHubActionsTestLogger" Version="2.0.1" />
+    <PackageReference Include="JetBrains.Rider.SDK.Tests" Version="$(SdkVersion)" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MO.CleanCode\MO.CleanCode.Rider.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="test/**/*" />
+    <None Include="test/**/*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="mono/*.dll" CopyLocal="true" />
+  </ItemGroup>
+</Project>
