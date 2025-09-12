@@ -6,6 +6,9 @@
     <IsPackable>false</IsPackable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <CodeAnalysisRuleset>CleanCode.ruleset</CodeAnalysisRuleset>
+    <!-- Disable ThemedIconsPacker to avoid MSBuild compatibility issues -->
+    <RunThemedIconsConverter>false</RunThemedIconsConverter>
+    <GenerateThemedIcons>false</GenerateThemedIcons>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference
@@ -51,8 +54,5 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ThemedIconPng Include="Resources\Icons\Settings\CleanCode.png" />
   </ItemGroup>
 </Project>

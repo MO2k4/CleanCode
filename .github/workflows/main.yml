@@ -22,7 +22,7 @@ jobs:
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: ${{ runner.os }}-Build-${{ hashFiles('gradlew.bat', 'src/dotnet/*/*.csproj', 'src/dotnet/*.props', 'gradle-wrapper.properties') }}
-      - run: ./gradlew :buildPlugin --no-daemon
+      - run: ls -la && ./gradlew :buildPlugin --no-daemon
       - uses: actions/upload-artifact@v4
         if: always()
         with:
