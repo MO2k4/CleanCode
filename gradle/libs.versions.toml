@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.2.10" # https://plugins.jetbrains.com/docs/intellij/using-kotlin.html#kotlin-standard-library
-rdGen = "2025.2.3" # https://github.com/JetBrains/rd/releases
+rdGen = "2025.3.0" # https://github.com/JetBrains/rd/releases
 
 [libraries]
 kotlinStdLib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
