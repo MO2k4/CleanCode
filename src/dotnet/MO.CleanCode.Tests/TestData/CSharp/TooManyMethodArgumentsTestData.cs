@@ -117,14 +117,14 @@ namespace CleanCode.Tests.TestData.CSharp
     }
 
     // Interface methods should also be checked
-    public interface ITestInterface
+    public interface IMethodArgumentsTestInterface
     {
         void InterfaceMethodWithTooManyArguments(string arg1, int arg2, bool arg3, double arg4);
         void InterfaceMethodWithAcceptableArguments(string arg1, int arg2, bool arg3);
     }
 
     // Abstract methods should also be checked
-    public abstract class AbstractTestClass
+    public abstract class MethodArgumentsAbstractTestClass
     {
         public abstract void AbstractMethodWithTooManyArguments(string arg1, int arg2, bool arg3, double arg4);
         public abstract void AbstractMethodWithAcceptableArguments(string arg1, int arg2, bool arg3);

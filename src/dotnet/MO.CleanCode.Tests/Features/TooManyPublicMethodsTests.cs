@@ -125,8 +125,8 @@ namespace CleanCode.Tests.Features
 
             // Small classes should not be highlighted
             var smallClassViolations = tooManyPublicMethodsHighlightings
-                .Where(h => h.ToString().Contains("SmallClass") ||
-                           h.ToString().Contains("EmptyClass"))
+                .Where(h => h.ToString().Contains("SmallPublicMethodsClass") ||
+                           h.ToString().Contains("EmptyPublicMethodsClass"))
                 .ToList();
 
             Assert.AreEqual(0, smallClassViolations.Count);

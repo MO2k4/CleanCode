@@ -43,4 +43,5 @@ _dotTrace*
 .classpath
 protocol/.settings/org.eclipse.buildship.core.prefs
 
+.DS_Store
 .claude

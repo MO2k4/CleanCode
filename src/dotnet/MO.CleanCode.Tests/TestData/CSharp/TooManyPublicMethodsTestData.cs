@@ -67,7 +67,7 @@ namespace CleanCode.Tests.TestData.CSharp
     }
 
     // This class should NOT trigger warning (small class)
-    public class SmallClass
+    public class SmallPublicMethodsClass
     {
         public void Method1() { }
         public void Method2() { }
@@ -140,7 +140,7 @@ namespace CleanCode.Tests.TestData.CSharp
     }
 
     // Empty class should not trigger warning
-    public class EmptyClass
+    public class EmptyPublicMethodsClass
     {
     }
 
