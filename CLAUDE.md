@@ -25,7 +25,7 @@ The project uses Gradle as the primary build system, with integration for .NET b
 
 ### Testing
 - Run all tests: `./gradlew testDotNet`
-- Direct .NET testing: `dotnet test src/dotnet/CleanCode.sln --logger GitHubActions`
+- Direct .NET testing: `dotnet test src/dotnet/CleanCode.sln`
 - Plugin testing: Use `runIde` task to launch Rider with plugin
 - Test project: `src/dotnet/MO.CleanCode.Tests/` contains NUnit tests using ReSharper Test Framework
 - Tests automatically run before building or publishing

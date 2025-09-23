@@ -114,7 +114,7 @@ val testDotNet by tasks.registering {
     doLast {
         exec {
             executable("dotnet")
-            args("test", DotnetSolution,"--logger","GitHubActions")
+            args("test", DotnetSolution)
             workingDir(rootDir)
         }
     }
