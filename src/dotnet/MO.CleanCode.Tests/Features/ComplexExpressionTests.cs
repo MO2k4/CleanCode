@@ -16,7 +16,7 @@ namespace CleanCode.Tests.Features
             // Test with default settings (1 max expression)
             var highlightings = RunInspection("ComplexExpressionTestData");
             var complexExpressionHighlightings = highlightings
-                .OfType&lt;ComplexConditionExpressionHighlighting&gt;()
+                .OfType<ComplexConditionExpressionHighlighting>()
                 .ToList();
 
             // Should find violations in conditions with 2+ operators
@@ -38,12 +38,12 @@ namespace CleanCode.Tests.Features
 
             var highlightings = RunInspection("ComplexExpressionTestData", settings);
             var complexExpressionHighlightings = highlightings
-                .OfType&lt;ComplexConditionExpressionHighlighting&gt;()
+                .OfType<ComplexConditionExpressionHighlighting>()
                 .ToList();
 
             // With limit of 5, fewer expressions should be highlighted
             var originalCount = RunInspection("ComplexExpressionTestData")
-                .OfType&lt;ComplexConditionExpressionHighlighting&gt;()
+                .OfType<ComplexConditionExpressionHighlighting>()
                 .Count();
 
             Assert.LessOrEqual(complexExpressionHighlightings.Count, originalCount);
@@ -54,7 +54,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ComplexExpressionTestData");
             var complexExpressionHighlightings = highlightings
-                .OfType&lt;ComplexConditionExpressionHighlighting&gt;()
+                .OfType<ComplexConditionExpressionHighlighting>()
                 .ToList();
 
             var violationSources = complexExpressionHighlightings
@@ -75,7 +75,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ComplexExpressionTestData");
             var complexExpressionHighlightings = highlightings
-                .OfType&lt;ComplexConditionExpressionHighlighting&gt;()
+                .OfType<ComplexConditionExpressionHighlighting>()
                 .ToList();
 
             // MethodWithSimpleConditions should not be highlighted
@@ -92,7 +92,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ComplexExpressionTestData");
             var complexExpressionHighlightings = highlightings
-                .OfType&lt;ComplexConditionExpressionHighlighting&gt;()
+                .OfType<ComplexConditionExpressionHighlighting>()
                 .ToList();
 
             // Should detect complex nested logical expressions
@@ -108,7 +108,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ComplexExpressionTestData");
             var complexExpressionHighlightings = highlightings
-                .OfType&lt;ComplexConditionExpressionHighlighting&gt;()
+                .OfType<ComplexConditionExpressionHighlighting>()
                 .ToList();
 
             // Should detect complex expressions with arithmetic and logical operators
@@ -124,7 +124,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ComplexExpressionTestData");
             var complexExpressionHighlightings = highlightings
-                .OfType&lt;ComplexConditionExpressionHighlighting&gt;()
+                .OfType<ComplexConditionExpressionHighlighting>()
                 .Where(h => h.ToString().Contains("MethodWithMultipleComplexConditions"))
                 .ToList();
 
@@ -137,7 +137,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ComplexExpressionTestData");
             var complexExpressionHighlightings = highlightings
-                .OfType&lt;ComplexConditionExpressionHighlighting&gt;()
+                .OfType<ComplexConditionExpressionHighlighting>()
                 .ToList();
 
             // Methods without conditions should not be highlighted
@@ -153,7 +153,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ComplexExpressionTestData");
             var complexExpressionHighlightings = highlightings
-                .OfType&lt;ComplexConditionExpressionHighlighting&gt;()
+                .OfType<ComplexConditionExpressionHighlighting>()
                 .ToList();
 
             // Should detect complex conditions in various loop types
@@ -171,7 +171,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ComplexExpressionTestData");
             var complexExpressionHighlighting = highlightings
-                .OfType&lt;ComplexConditionExpressionHighlighting&gt;()
+                .OfType<ComplexConditionExpressionHighlighting>()
                 .FirstOrDefault();
 
             if (complexExpressionHighlighting != null)

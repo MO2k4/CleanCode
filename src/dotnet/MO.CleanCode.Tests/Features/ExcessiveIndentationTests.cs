@@ -16,7 +16,7 @@ namespace CleanCode.Tests.Features
             // Test with default settings (3 max indentation levels)
             var highlightings = RunInspection("ExcessiveIndentationTestData");
             var excessiveIndentHighlightings = highlightings
-                .OfType&lt;ExcessiveIndentHighlighting&gt;()
+                .OfType<ExcessiveIndentHighlighting>()
                 .ToList();
 
             // Should find violations in methods with 4+ levels of nesting
@@ -38,7 +38,7 @@ namespace CleanCode.Tests.Features
 
             var highlightings = RunInspection("ExcessiveIndentationTestData", settings);
             var excessiveIndentHighlightings = highlightings
-                .OfType&lt;ExcessiveIndentHighlighting&gt;()
+                .OfType<ExcessiveIndentHighlighting>()
                 .ToList();
 
             // With limit of 5, no methods should be highlighted
@@ -50,7 +50,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ExcessiveIndentationTestData");
             var excessiveIndentHighlightings = highlightings
-                .OfType&lt;ExcessiveIndentHighlighting&gt;()
+                .OfType<ExcessiveIndentHighlighting>()
                 .ToList();
 
             // Should detect excessive indentation in if statements, loops, try-catch, switch
@@ -71,7 +71,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ExcessiveIndentationTestData");
             var excessiveIndentHighlightings = highlightings
-                .OfType&lt;ExcessiveIndentHighlighting&gt;()
+                .OfType<ExcessiveIndentHighlighting>()
                 .ToList();
 
             // MethodWithShallowNesting, EmptyMethod, SimpleMethod should not be highlighted
@@ -89,7 +89,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ExcessiveIndentationTestData");
             var excessiveIndentHighlightings = highlightings
-                .OfType&lt;ExcessiveIndentHighlighting&gt;()
+                .OfType<ExcessiveIndentHighlighting>()
                 .ToList();
 
             // MethodWithAcceptableIndentation should not be highlighted (exactly at limit)
@@ -105,7 +105,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ExcessiveIndentationTestData");
             var excessiveIndentHighlighting = highlightings
-                .OfType&lt;ExcessiveIndentHighlighting&gt;()
+                .OfType<ExcessiveIndentHighlighting>()
                 .FirstOrDefault();
 
             Assert.IsNotNull(excessiveIndentHighlighting);

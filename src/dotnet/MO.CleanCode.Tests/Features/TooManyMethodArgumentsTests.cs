@@ -16,7 +16,7 @@ namespace CleanCode.Tests.Features
             // Test with default settings (3 max parameters)
             var highlightings = RunInspection("TooManyMethodArgumentsTestData");
             var tooManyArgumentsHighlightings = highlightings
-                .OfType&lt;TooManyArgumentsHighlighting&gt;()
+                .OfType<TooManyArgumentsHighlighting>()
                 .ToList();
 
             // Should find violations in methods/constructors with 4+ parameters
@@ -39,12 +39,12 @@ namespace CleanCode.Tests.Features
 
             var highlightings = RunInspection("TooManyMethodArgumentsTestData", settings);
             var tooManyArgumentsHighlightings = highlightings
-                .OfType&lt;TooManyArgumentsHighlighting&gt;()
+                .OfType<TooManyArgumentsHighlighting>()
                 .ToList();
 
             // With limit of 5, fewer methods should be highlighted
             var originalCount = RunInspection("TooManyMethodArgumentsTestData")
-                .OfType&lt;TooManyArgumentsHighlighting&gt;()
+                .OfType<TooManyArgumentsHighlighting>()
                 .Count();
 
             Assert.LessOrEqual(tooManyArgumentsHighlightings.Count, originalCount);
@@ -55,7 +55,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("TooManyMethodArgumentsTestData");
             var tooManyArgumentsHighlightings = highlightings
-                .OfType&lt;TooManyArgumentsHighlighting&gt;()
+                .OfType<TooManyArgumentsHighlighting>()
                 .ToList();
 
             var methodNames = tooManyArgumentsHighlightings
@@ -75,7 +75,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("TooManyMethodArgumentsTestData");
             var tooManyArgumentsHighlightings = highlightings
-                .OfType&lt;TooManyArgumentsHighlighting&gt;()
+                .OfType<TooManyArgumentsHighlighting>()
                 .ToList();
 
             // Methods with ≤3 parameters should not be highlighted
@@ -94,7 +94,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("TooManyMethodArgumentsTestData");
             var tooManyArgumentsHighlightings = highlightings
-                .OfType&lt;TooManyArgumentsHighlighting&gt;()
+                .OfType<TooManyArgumentsHighlighting>()
                 .ToList();
 
             // Should count optional parameters, ref/out parameters, etc.
@@ -111,7 +111,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("TooManyMethodArgumentsTestData");
             var tooManyArgumentsHighlightings = highlightings
-                .OfType&lt;TooManyArgumentsHighlighting&gt;()
+                .OfType<TooManyArgumentsHighlighting>()
                 .ToList();
 
             // MethodWithParamsArray has only 2 parameters (message + params array)
@@ -127,7 +127,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("TooManyMethodArgumentsTestData");
             var tooManyArgumentsHighlightings = highlightings
-                .OfType&lt;TooManyArgumentsHighlighting&gt;()
+                .OfType<TooManyArgumentsHighlighting>()
                 .ToList();
 
             // Should check interface and abstract method declarations
@@ -145,7 +145,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("TooManyMethodArgumentsTestData");
             var tooManyArgumentsHighlighting = highlightings
-                .OfType&lt;TooManyArgumentsHighlighting&gt;()
+                .OfType<TooManyArgumentsHighlighting>()
                 .FirstOrDefault();
 
             Assert.IsNotNull(tooManyArgumentsHighlighting);

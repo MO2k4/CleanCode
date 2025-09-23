@@ -16,7 +16,7 @@ namespace CleanCode.Tests.Features
             // Test with default settings (3 max dependencies)
             var highlightings = RunInspection("TooManyDependenciesTestData");
             var tooManyDependenciesHighlightings = highlightings
-                .OfType&lt;TooManyDependenciesHighlighting&gt;()
+                .OfType<TooManyDependenciesHighlighting>()
                 .ToList();
 
             // Should find violations in:
@@ -40,7 +40,7 @@ namespace CleanCode.Tests.Features
 
             var highlightings = RunInspection("TooManyDependenciesTestData", settings);
             var tooManyDependenciesHighlightings = highlightings
-                .OfType&lt;TooManyDependenciesHighlighting&gt;()
+                .OfType<TooManyDependenciesHighlighting>()
                 .ToList();
 
             // With limit of 5, no constructors should be highlighted
@@ -53,7 +53,7 @@ namespace CleanCode.Tests.Features
             // Test that concrete types don't count towards dependency limit
             var highlightings = RunInspection("TooManyDependenciesTestData");
             var tooManyDependenciesHighlightings = highlightings
-                .OfType&lt;TooManyDependenciesHighlighting&gt;()
+                .OfType<TooManyDependenciesHighlighting>()
                 .ToList();
 
             // ClassWithConcreteTypes has 6 concrete dependencies but should not be highlighted
@@ -70,7 +70,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("TooManyDependenciesTestData");
             var tooManyDependenciesHighlightings = highlightings
-                .OfType&lt;TooManyDependenciesHighlighting&gt;()
+                .OfType<TooManyDependenciesHighlighting>()
                 .ToList();
 
             // ClassWithNoConstructor should not have any violations
@@ -86,7 +86,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("TooManyDependenciesTestData");
             var tooManyDependenciesHighlighting = highlightings
-                .OfType&lt;TooManyDependenciesHighlighting&gt;()
+                .OfType<TooManyDependenciesHighlighting>()
                 .FirstOrDefault();
 
             Assert.IsNotNull(tooManyDependenciesHighlighting);

@@ -16,7 +16,7 @@ namespace CleanCode.Tests.Features
             // Test with default settings (flag analysis enabled)
             var highlightings = RunInspection("FlagArgumentsTestData");
             var flagArgumentsHighlightings = highlightings
-                .OfType&lt;FlagArgumentsHighlighting&gt;()
+                .OfType<FlagArgumentsHighlighting>()
                 .ToList();
 
             // Should find violations where bool/enum parameters are used in if statements
@@ -31,7 +31,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("FlagArgumentsTestData");
             var flagArgumentsHighlightings = highlightings
-                .OfType&lt;FlagArgumentsHighlighting&gt;()
+                .OfType<FlagArgumentsHighlighting>()
                 .ToList();
 
             // Should detect enum parameters used in if statements
@@ -53,7 +53,7 @@ namespace CleanCode.Tests.Features
 
             var highlightings = RunInspection("FlagArgumentsTestData", settings);
             var flagArgumentsHighlightings = highlightings
-                .OfType&lt;FlagArgumentsHighlighting&gt;()
+                .OfType<FlagArgumentsHighlighting>()
                 .ToList();
 
             // With flag analysis disabled, no violations should be found
@@ -65,7 +65,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("FlagArgumentsTestData");
             var flagArgumentsHighlightings = highlightings
-                .OfType&lt;FlagArgumentsHighlighting&gt;()
+                .OfType<FlagArgumentsHighlighting>()
                 .ToList();
 
             // Methods where flag parameters are not used in if statements should not be highlighted
@@ -83,7 +83,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("FlagArgumentsTestData");
             var flagArgumentsHighlightings = highlightings
-                .OfType&lt;FlagArgumentsHighlighting&gt;()
+                .OfType<FlagArgumentsHighlighting>()
                 .ToList();
 
             // String and int parameters should not be highlighted even if used in if
@@ -100,7 +100,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("FlagArgumentsTestData");
             var flagArgumentsHighlightings = highlightings
-                .OfType&lt;FlagArgumentsHighlighting&gt;()
+                .OfType<FlagArgumentsHighlighting>()
                 .ToList();
 
             // MethodWithMultipleFlags should potentially have multiple violations
@@ -117,7 +117,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("FlagArgumentsTestData");
             var flagArgumentsHighlightings = highlightings
-                .OfType&lt;FlagArgumentsHighlighting&gt;()
+                .OfType<FlagArgumentsHighlighting>()
                 .ToList();
 
             // Should detect flag usage in nested if statements
@@ -133,7 +133,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("FlagArgumentsTestData");
             var flagArgumentsHighlightings = highlightings
-                .OfType&lt;FlagArgumentsHighlighting&gt;()
+                .OfType<FlagArgumentsHighlighting>()
                 .ToList();
 
             // Should detect flag usage in complex if conditions
@@ -149,7 +149,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("FlagArgumentsTestData");
             var flagArgumentsHighlightings = highlightings
-                .OfType&lt;FlagArgumentsHighlighting&gt;()
+                .OfType<FlagArgumentsHighlighting>()
                 .ToList();
 
             // Methods without if statements should not be highlighted
@@ -166,7 +166,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("FlagArgumentsTestData");
             var flagArgumentsHighlighting = highlightings
-                .OfType&lt;FlagArgumentsHighlighting&gt;()
+                .OfType<FlagArgumentsHighlighting>()
                 .FirstOrDefault();
 
             if (flagArgumentsHighlighting != null)

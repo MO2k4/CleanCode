@@ -7,7 +7,7 @@ namespace CleanCode.Tests.TestData.CSharp
     public class ChainedReferencesTestData
     {
         public Person Person { get; set; }
-        public List&lt;int&gt; Numbers { get; set; }
+        public List<int> Numbers { get; set; }
 
         // This method should trigger ChainedReferences warning (3 chained calls > default 2)
         public void MethodWithTooManyChainedReferences()

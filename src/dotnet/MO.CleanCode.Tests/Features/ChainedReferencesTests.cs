@@ -16,7 +16,7 @@ namespace CleanCode.Tests.Features
             // Test with default settings (2 max chained references)
             var highlightings = RunInspection("ChainedReferencesTestData");
             var chainedReferencesHighlightings = highlightings
-                .OfType&lt;MaximumChainedReferencesHighlighting&gt;()
+                .OfType<MaximumChainedReferencesHighlighting>()
                 .ToList();
 
             // Should find violations in methods with 3+ chained references
@@ -37,12 +37,12 @@ namespace CleanCode.Tests.Features
 
             var highlightings = RunInspection("ChainedReferencesTestData", settings);
             var chainedReferencesHighlightings = highlightings
-                .OfType&lt;MaximumChainedReferencesHighlighting&gt;()
+                .OfType<MaximumChainedReferencesHighlighting>()
                 .ToList();
 
             // With limit of 5, fewer methods should be highlighted
             var originalCount = RunInspection("ChainedReferencesTestData")
-                .OfType&lt;MaximumChainedReferencesHighlighting&gt;()
+                .OfType<MaximumChainedReferencesHighlighting>()
                 .Count();
 
             Assert.LessOrEqual(chainedReferencesHighlightings.Count, originalCount);
@@ -59,7 +59,7 @@ namespace CleanCode.Tests.Features
 
             var highlightingsExcludeLinq = RunInspection("ChainedReferencesTestData", settingsExcludeLinq);
             var chainedReferencesExcludeLinq = highlightingsExcludeLinq
-                .OfType&lt;MaximumChainedReferencesHighlighting&gt;()
+                .OfType<MaximumChainedReferencesHighlighting>()
                 .ToList();
 
             // Test with LINQ inclusion enabled
@@ -70,7 +70,7 @@ namespace CleanCode.Tests.Features
 
             var highlightingsIncludeLinq = RunInspection("ChainedReferencesTestData", settingsIncludeLinq);
             var chainedReferencesIncludeLinq = highlightingsIncludeLinq
-                .OfType&lt;MaximumChainedReferencesHighlighting&gt;()
+                .OfType<MaximumChainedReferencesHighlighting>()
                 .ToList();
 
             // Including LINQ should potentially find more violations
@@ -82,7 +82,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ChainedReferencesTestData");
             var chainedReferencesHighlightings = highlightings
-                .OfType&lt;MaximumChainedReferencesHighlighting&gt;()
+                .OfType<MaximumChainedReferencesHighlighting>()
                 .ToList();
 
             // MethodWithFluentAPIChaining should not be highlighted
@@ -100,7 +100,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ChainedReferencesTestData");
             var chainedReferencesHighlightings = highlightings
-                .OfType&lt;MaximumChainedReferencesHighlighting&gt;()
+                .OfType<MaximumChainedReferencesHighlighting>()
                 .ToList();
 
             // MethodWithSimplePropertyAccess should not be highlighted
@@ -116,7 +116,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ChainedReferencesTestData");
             var chainedReferencesHighlightings = highlightings
-                .OfType&lt;MaximumChainedReferencesHighlighting&gt;()
+                .OfType<MaximumChainedReferencesHighlighting>()
                 .ToList();
 
             // MethodWithSameObjectCalls should not be highlighted
@@ -132,7 +132,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ChainedReferencesTestData");
             var chainedReferencesHighlightings = highlightings
-                .OfType&lt;MaximumChainedReferencesHighlighting&gt;()
+                .OfType<MaximumChainedReferencesHighlighting>()
                 .Where(h => h.ToString().Contains("MethodWithMultipleChains"))
                 .ToList();
 
@@ -145,7 +145,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ChainedReferencesTestData");
             var chainedReferencesHighlighting = highlightings
-                .OfType&lt;MaximumChainedReferencesHighlighting&gt;()
+                .OfType<MaximumChainedReferencesHighlighting>()
                 .FirstOrDefault();
 
             Assert.IsNotNull(chainedReferencesHighlighting);

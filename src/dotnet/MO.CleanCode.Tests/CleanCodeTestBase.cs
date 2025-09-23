@@ -19,7 +19,7 @@ namespace CleanCode.Tests
             {
                 using (TestSettingsStoreFree.CreateSettingsTransaction())
                 {
-                    var settingsStore = Shell.Instance.GetComponent&lt;ISettingsStore&gt;();
+                    var settingsStore = Shell.Instance.GetComponent<ISettingsStore>();
                     settingsStore.BindToContextTransient(ContextRange.ApplicationWide)
                         .SetValue((CleanCodeSettings s) => s, settings as CleanCodeSettings);
 
@@ -32,13 +32,13 @@ namespace CleanCode.Tests
             }
         }
 
-        protected IEnumerable&lt;IHighlighting&gt; RunInspection(string testName, ICleanCodeSettings settings = null)
+        protected IEnumerable<IHighlighting> RunInspection(string testName, ICleanCodeSettings settings = null)
         {
             if (settings != null)
             {
                 using (TestSettingsStoreFree.CreateSettingsTransaction())
                 {
-                    var settingsStore = Shell.Instance.GetComponent&lt;ISettingsStore&gt;();
+                    var settingsStore = Shell.Instance.GetComponent<ISettingsStore>();
                     settingsStore.BindToContextTransient(ContextRange.ApplicationWide)
                         .SetValue((CleanCodeSettings s) => s, settings as CleanCodeSettings);
 
@@ -49,7 +49,7 @@ namespace CleanCode.Tests
             return DoTestSolution(testName);
         }
 
-        protected virtual IEnumerable&lt;IHighlighting&gt; DoTestSolution(string testName)
+        protected virtual IEnumerable<IHighlighting> DoTestSolution(string testName)
         {
             var testFile = GetTestDataFilePath2(testName + ".cs");
             var solution = GetSolution(testFile);
@@ -59,7 +59,7 @@ namespace CleanCode.Tests
                 var sourceFile = file.ToSourceFile();
                 if (sourceFile?.IsValid() == true)
                 {
-                    var daemon = Solution.GetComponent&lt;IDaemon&gt;();
+                    var daemon = Solution.GetComponent<IDaemon>();
                     var highlighting = daemon.GetHighlighting(sourceFile);
                     foreach (var h in highlighting)
                     {

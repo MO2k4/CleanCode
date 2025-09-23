@@ -16,7 +16,7 @@ namespace CleanCode.Tests.Features
             // Test with default settings (15 max statements)
             var highlightings = RunInspection("MethodTooLongTestData");
             var methodTooLongHighlightings = highlightings
-                .OfType&lt;MethodTooLongHighlighting&gt;()
+                .OfType<MethodTooLongHighlighting>()
                 .ToList();
 
             // Should find violation in MethodWithTooManyStatements (16 statements > 15 default)
@@ -33,7 +33,7 @@ namespace CleanCode.Tests.Features
             // Test with default settings (6 max declarations)
             var highlightings = RunInspection("MethodTooLongTestData");
             var methodTooManyDeclarationsHighlightings = highlightings
-                .OfType&lt;MethodTooManyDeclarationsHighlighting&gt;()
+                .OfType<MethodTooManyDeclarationsHighlighting>()
                 .ToList();
 
             // Should find violation in MethodWithTooManyDeclarations (7 declarations > 6 default)
@@ -55,7 +55,7 @@ namespace CleanCode.Tests.Features
 
             var highlightings = RunInspection("MethodTooLongTestData", settings);
             var methodTooLongHighlightings = highlightings
-                .OfType&lt;MethodTooLongHighlighting&gt;()
+                .OfType<MethodTooLongHighlighting>()
                 .ToList();
 
             // With limit of 20, no methods should be highlighted for statement count
@@ -73,7 +73,7 @@ namespace CleanCode.Tests.Features
 
             var highlightings = RunInspection("MethodTooLongTestData", settings);
             var methodTooManyDeclarationsHighlightings = highlightings
-                .OfType&lt;MethodTooManyDeclarationsHighlighting&gt;()
+                .OfType<MethodTooManyDeclarationsHighlighting>()
                 .ToList();
 
             // With limit of 10, no methods should be highlighted for declaration count
@@ -119,7 +119,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("MethodTooLongTestData");
             var methodTooLongHighlighting = highlightings
-                .OfType&lt;MethodTooLongHighlighting&gt;()
+                .OfType<MethodTooLongHighlighting>()
                 .FirstOrDefault();
 
             Assert.IsNotNull(methodTooLongHighlighting);
@@ -132,7 +132,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("MethodTooLongTestData");
             var methodTooManyDeclarationsHighlighting = highlightings
-                .OfType&lt;MethodTooManyDeclarationsHighlighting&gt;()
+                .OfType<MethodTooManyDeclarationsHighlighting>()
                 .FirstOrDefault();
 
             Assert.IsNotNull(methodTooManyDeclarationsHighlighting);

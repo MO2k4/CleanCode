@@ -16,7 +16,7 @@ namespace CleanCode.Tests.Features
             // Test with default settings (20 max methods)
             var highlightings = RunInspection("ClassTooBigTestData");
             var classTooBigHighlightings = highlightings
-                .OfType&lt;ClassTooBigHighlighting&gt;()
+                .OfType<ClassTooBigHighlighting>()
                 .ToList();
 
             // Should find violation in ClassWithTooManyMethods (21 methods > 20 default)
@@ -38,7 +38,7 @@ namespace CleanCode.Tests.Features
 
             var highlightings = RunInspection("ClassTooBigTestData", settings);
             var classTooBigHighlightings = highlightings
-                .OfType&lt;ClassTooBigHighlighting&gt;()
+                .OfType<ClassTooBigHighlighting>()
                 .ToList();
 
             // With limit of 25, no classes should be highlighted
@@ -50,7 +50,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ClassTooBigTestData");
             var classTooBigHighlightings = highlightings
-                .OfType&lt;ClassTooBigHighlighting&gt;()
+                .OfType<ClassTooBigHighlighting>()
                 .ToList();
 
             // ClassWithMixedMembers has properties and fields but only 3 methods
@@ -67,7 +67,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ClassTooBigTestData");
             var classTooBigHighlightings = highlightings
-                .OfType&lt;ClassTooBigHighlighting&gt;()
+                .OfType<ClassTooBigHighlighting>()
                 .ToList();
 
             // EmptyClass should not have any violations
@@ -83,7 +83,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ClassTooBigTestData");
             var classTooBigHighlightings = highlightings
-                .OfType&lt;ClassTooBigHighlighting&gt;()
+                .OfType<ClassTooBigHighlighting>()
                 .ToList();
 
             // SmallClass and ClassWithAcceptableMethodCount should not be highlighted
@@ -99,7 +99,7 @@ namespace CleanCode.Tests.Features
         {
             var highlightings = RunInspection("ClassTooBigTestData");
             var classTooBigHighlighting = highlightings
-                .OfType&lt;ClassTooBigHighlighting&gt;()
+                .OfType<ClassTooBigHighlighting>()
                 .FirstOrDefault();
 
             Assert.IsNotNull(classTooBigHighlighting);
