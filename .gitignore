@@ -42,3 +42,5 @@ _dotTrace*
 .project
 .classpath
 protocol/.settings/org.eclipse.buildship.core.prefs
+
+.claude
