@@ -114,13 +114,14 @@ val testDotNet by tasks.registering {
     doLast {
         exec {
             executable("dotnet")
-            args("test", DotnetSolution,"--logger","GitHubActions")
+            args("test", DotnetSolution)
             workingDir(rootDir)
         }
     }
 }
 
 tasks.buildPlugin {
+    dependsOn(testDotNet)
     doLast {
         copy {
             from("${buildDir}/distributions/${rootProject.name}-${version}.zip")
@@ -202,7 +203,7 @@ tasks.prepareSandbox {
 }
 
 tasks.publishPlugin {
-    // dependsOn(testDotNet)
+    dependsOn(testDotNet)
     dependsOn(tasks.buildPlugin)
     token.set(PublishToken)
 
