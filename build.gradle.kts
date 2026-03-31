@@ -1,8 +1,10 @@
 import com.jetbrains.plugin.structure.base.utils.isFile
 import groovy.ant.FileNameFinder
 import org.apache.tools.ant.taskdefs.condition.Os
+import org.gradle.process.ExecOperations
 import org.jetbrains.intellij.platform.gradle.Constants
 import java.io.ByteArrayOutputStream
+import javax.inject.Inject
 
 plugins {
     id("java")
@@ -13,6 +15,12 @@ plugins {
 
 val isWindows = Os.isFamily(Os.FAMILY_WINDOWS)
 extra["isWindows"] = isWindows
+
+// Gradle 9 removed exec {} from task actions; use injected ExecOperations instead
+interface Injected {
+    @get:Inject val execOps: ExecOperations
+}
+val injected = objects.newInstance<Injected>()
 
 val DotnetSolution: String by project
 val BuildConfiguration: String by project
@@ -35,7 +43,7 @@ repositories {
 }
 
 tasks.wrapper {
-    gradleVersion = "8.13"
+    gradleVersion = "9.4.1"
     distributionType = Wrapper.DistributionType.ALL
     distributionUrl = "https://cache-redirector.jetbrains.com/services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
@@ -73,7 +81,7 @@ val setBuildTool by tasks.registering {
 
         if (isWindows) {
             val stdout = ByteArrayOutputStream()
-            exec {
+            injected.execOps.exec {
                 executable("${rootDir}\\tools\\vswhere.exe")
                 args("-latest", "-property", "installationPath", "-products", "*")
                 standardOutput = stdout
@@ -102,7 +110,7 @@ val compileDotNet by tasks.registering {
         val arguments = (setBuildTool.get().extra["args"] as List<String>).toMutableList()
         arguments.add("/t:Restore;Rebuild")
 
-        exec {
+        injected.execOps.exec {
             executable(executable)
             args(arguments)
             workingDir(rootDir)
@@ -112,7 +120,7 @@ val compileDotNet by tasks.registering {
 
 val testDotNet by tasks.registering {
     doLast {
-        exec {
+        injected.execOps.exec {
             executable("dotnet")
             args("test", DotnetSolution,"--logger","GitHubActions")
             workingDir(rootDir)
@@ -123,7 +131,7 @@ val testDotNet by tasks.registering {
 tasks.buildPlugin {
     doLast {
         copy {
-            from("${buildDir}/distributions/${rootProject.name}-${version}.zip")
+            from("${layout.buildDirectory.get().asFile}/distributions/${rootProject.name}-${version}.zip")
             into("${rootDir}/output")
         }
 
@@ -141,7 +149,7 @@ tasks.buildPlugin {
         arguments.add("/p:PackageReleaseNotes=${changeNotes}")
         arguments.add("/p:PackageVersion=${version}")
 
-        exec {
+        injected.execOps.exec {
             executable(executable)
             args(arguments)
             workingDir(rootDir)
@@ -207,7 +215,7 @@ tasks.publishPlugin {
     token.set(PublishToken)
 
     doLast {
-        exec {
+        injected.execOps.exec {
             executable("dotnet")
             args("nuget","push","output/${DotnetPluginId}.${version}.nupkg","--api-key", PublishToken,"--source","https://plugins.jetbrains.com")
             workingDir(rootDir)
