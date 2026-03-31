@@ -1,4 +1,4 @@
-name: Create 
+name: Build & Publish
 
 on:
   push:
@@ -7,6 +7,10 @@ on:
   pull_request:
     branches:
       - master
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -21,28 +25,28 @@ jobs:
         with:
           dotnet-version: '8.x'
 
-      - uses: actions/cache@v4
+      - name: Cache dependencies
+        uses: actions/cache@v4
         with:
           path: |
             build/gradle-jvm
             ~/.nuget/packages
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-Build-${{ hashFiles('gradlew.bat', 'src/dotnet/*/*.csproj', 'src/dotnet/*.props', 'gradle-wrapper.properties') }}
+          key: ${{ runner.os }}-build-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties', 'gradle/libs.versions.toml', 'build.gradle.kts', 'src/dotnet/*/*.csproj', 'src/dotnet/*.props') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
 
       - name: Build Plugin
         run: ./gradlew buildPlugin
 
       - name: Publish Artifact
-        uses: actions/upload-artifact@v4.3.3
+        uses: actions/upload-artifact@v4
         with:
           name: Artifacts
           path: output
           retention-days: 7
-      
+
       - name: Publish plugins to jetbrains
-        shell: cmd
-        run: ./gradlew publishPlugin -PBuildConfiguration="Release" -PPublishToken="%PublishKey%"
-        env:
-          PublishKey: ${{ secrets.PublishKey }}
+        run: ./gradlew publishPlugin -PBuildConfiguration="Release" -PPublishToken="${{ secrets.PublishKey }}"
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
