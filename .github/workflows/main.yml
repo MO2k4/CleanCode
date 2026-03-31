@@ -42,6 +42,7 @@ jobs:
 
       - name: Build & Publish Plugin
         if: github.ref == 'refs/heads/master'
+        shell: bash
         run: ./gradlew publishPlugin -PBuildConfiguration="Release" -PPublishToken="$PUBLISH_KEY" --parallel --build-cache
         env:
           PUBLISH_KEY: ${{ secrets.PublishKey }}
