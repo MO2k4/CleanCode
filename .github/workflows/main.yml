@@ -33,7 +33,7 @@ jobs:
       - name: Cache IntelliJ Platform
         uses: actions/cache@v4
         with:
-          path: ~/.intellijPlatform
+          path: .intellijPlatform
           key: intellij-${{ hashFiles('gradle.properties') }}
 
       - name: Build Plugin
