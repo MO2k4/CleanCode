@@ -7,7 +7,7 @@ import java.io.ByteArrayOutputStream
 plugins {
     id("java")
     alias(libs.plugins.kotlinJvm)
-    id("org.jetbrains.intellij.platform") version "2.8.0"     // See https://github.com/JetBrains/intellij-platform-gradle-plugin/releases
+    id("org.jetbrains.intellij.platform") version "2.13.1"    // See https://github.com/JetBrains/intellij-platform-gradle-plugin/releases
     id("me.filippov.gradle.jvm.wrapper") version "0.15.0"
 }
 
@@ -35,7 +35,7 @@ repositories {
 }
 
 tasks.wrapper {
-    gradleVersion = "8.8"
+    gradleVersion = "8.13"
     distributionType = Wrapper.DistributionType.ALL
     distributionUrl = "https://cache-redirector.jetbrains.com/services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
