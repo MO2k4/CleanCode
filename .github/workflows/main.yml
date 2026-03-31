@@ -25,20 +25,19 @@ jobs:
         with:
           dotnet-version: '8.x'
 
-      - name: Cache dependencies
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Cache NuGet packages
         uses: actions/cache@v4
         with:
-          path: |
-            build/gradle-jvm
-            ~/.nuget/packages
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-build-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties', 'gradle/libs.versions.toml', 'build.gradle.kts', 'src/dotnet/*/*.csproj', 'src/dotnet/*.props') }}
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('src/dotnet/*/*.csproj', 'src/dotnet/*.props') }}
           restore-keys: |
-            ${{ runner.os }}-build-
+            ${{ runner.os }}-nuget-
 
       - name: Build Plugin
-        run: ./gradlew buildPlugin
+        run: ./gradlew buildPlugin --build-cache
 
       - name: Publish Artifact
         uses: actions/upload-artifact@v4
@@ -48,5 +47,5 @@ jobs:
           retention-days: 7
 
       - name: Publish plugins to jetbrains
-        run: ./gradlew publishPlugin -PBuildConfiguration="Release" -PPublishToken="${{ secrets.PublishKey }}"
+        run: ./gradlew publishPlugin -PBuildConfiguration="Release" -PPublishToken="${{ secrets.PublishKey }}" --build-cache
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
