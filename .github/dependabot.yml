@@ -6,6 +6,8 @@ updates:
       interval: daily
       time: "18:10"
     open-pull-requests-limit: 10
+    cooldown:
+      default-days: 5
     groups:
       nuget-minor-patch:
         update-types:
@@ -15,6 +17,8 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 5
     groups:
       gradle-minor-patch:
         update-types:
