@@ -54,6 +54,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ThemedIconPng Include="Resources\Icons\Settings\CleanCode.png" />
+    <EmbeddedResource Include="Resources\Icons\Settings\CleanCode.png" />
   </ItemGroup>
 </Project>
